@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="cs175.whatsfordinner.MainScreenActivity">
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_constraintBottom_creator="1"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintTop_creator="1">
+
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/whatsfordinner"
+            tools:layout_editor_absoluteY="0dp"
+            tools:layout_editor_absoluteX="0dp" />
+
+        <Button
+            android:id="@+id/meals"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:drawableTop="@drawable/meals"
+            android:text="Meals"
+            tools:background="@android:color/white"
+            android:layout_below="@+id/imageView"
+            android:layout_toLeftOf="@+id/recipes"
+            android:layout_toStartOf="@+id/recipes"
+            android:layout_marginRight="77dp"
+            android:layout_marginEnd="77dp"
+            android:layout_marginTop="50dp"
+            android:onClick="getMeal"/>
+
+        <Button
+            android:id="@+id/groceries"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_alignLeft="@+id/meals"
+            android:layout_below="@+id/meals"
+            android:drawableTop="@drawable/groceries"
+            android:text="Groceries"
+            tools:background="@android:color/transparent"
+             />
+
+        <Button
+            android:id="@+id/new_dish"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:drawableTop="@drawable/new_dish"
+            android:text="New Dish"
+            tools:background="@android:color/transparent"
+            android:layout_below="@+id/recipes"
+            android:layout_alignLeft="@+id/recipes"
+            android:layout_alignStart="@+id/recipes"
+            android:onClick="NewDish"
+            />
+
+        <Button
+            android:id="@+id/recipes"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:drawableTop="@drawable/recipes"
+            android:text="Recipes"
+            tools:background="@android:color/transparent"
+            android:layout_below="@+id/imageView"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="50dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginTop="50dp"/>
+
+
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>
