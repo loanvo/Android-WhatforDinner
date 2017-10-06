@@ -1,18 +1,43 @@
 package cs175.whatsfordinner;
 
+import android.net.Uri;
+
 /**
  * Created by loanvo on 10/3/17.
  */
 
 public class Recipe {
+    private int _id;
     private String name;
     private String ingredients;
     private String direction;
+    private Uri image;
 
-    public Recipe(String name, String ingredients, String direction){
-        name = this.name;
-        ingredients = this.ingredients;
-        direction = this.direction;
+    public Recipe(int id, String n, String ingre, String dir, Uri imageUri){
+        _id = id;
+        name = n;
+        ingredients = ingre;
+        direction = dir;
+        image = imageUri;
+    }
+    public int getID(){
+        return _id;
+    }
+
+    public String getName(){
+        return name;
+    }
+
+    public String getItems(){
+        return ingredients;
+    }
+
+    public String getDirection(){
+        return direction;
+    }
+
+    public Uri getImage(){
+        return image;
     }
 
 

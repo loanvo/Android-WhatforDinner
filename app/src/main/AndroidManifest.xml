@@ -20,8 +20,10 @@
         </activity>
 
         <activity
+            android:windowSoftInputMode="adjustPan"
             android:name=".NewDishScreen"
-            android:parentActivityName=".MainScreenActivity" />
+            android:parentActivityName=".MainScreenActivity"
+            />
 
         <activity android:name=".Recipes_Screen"
             android:parentActivityName=".MainScreenActivity"/>
