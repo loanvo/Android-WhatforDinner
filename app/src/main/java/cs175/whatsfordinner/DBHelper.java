@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
+import android.util.Log;
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ import java.util.List;
  * Created by loanvo on 10/5/17.
  */
 public class DBHelper extends SQLiteOpenHelper{
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     private static final String DATABASE_NAME = "Recipes";
     private static final String TABLE_NAME = "new_Recipes";
 
@@ -31,14 +32,16 @@ public class DBHelper extends SQLiteOpenHelper{
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE" + TABLE_NAME + "(" + KEY_ID + "INTEGER PRIMARY KEY AUTOINCREMENT," +
-                KEY_NAME + "TEXT," + KEY_ITEMS + "TEXT," + KEY_DIRECTION + "TEXT,"
-                    + KEY_IMAGEURI + "TEXT)");
+        String querry = ("CREATE TABLE " + TABLE_NAME + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                KEY_NAME + " TEXT," + KEY_ITEMS + " TEXT," + KEY_DIRECTION + " TEXT,"
+                    + KEY_IMAGEURI + " TEXT)");
+        Log.d("DBHelper-onCreate", querry);
+        db.execSQL (querry);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int version1, int version2) {
-        db.execSQL("DROP DATABASE IF EXIST " + TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         onCreate(db);
     }
 
@@ -49,8 +52,8 @@ public class DBHelper extends SQLiteOpenHelper{
                 + KEY_NAME + ", " + KEY_ITEMS + ", " + KEY_DIRECTION + ", "
                 + KEY_IMAGEURI + ") "
                 + "VALUES( '" + recipe.getName()
-                + "','" + recipe.getItems() + "','" + recipe.getDirection()
-                + "','" + recipe.getImage() + "')'";
+                + "','" + recipe.getItems() + "', '" + recipe.getDirection()
+                + "', '" + recipe.getImage() + "')";
         db.execSQL(insert);
         db.close();
     }

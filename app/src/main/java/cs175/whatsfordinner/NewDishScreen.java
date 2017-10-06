@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -62,7 +63,7 @@ public class NewDishScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_dish_screen);
-        imageButton=(Button)findViewById(R.id.button);
+        /*imageButton=(Button)findViewById(R.id.button);
 
         imageButton.setOnClickListener(new View.OnClickListener()
         {
@@ -77,7 +78,7 @@ public class NewDishScreen extends AppCompatActivity {
 
 
         });
-        myLayout = (RelativeLayout) findViewById( R.id.mylayout );
+        myLayout = (RelativeLayout) findViewById( R.id.mylayout );*/
 
         dbHelper = new DBHelper(getApplicationContext());
         saveRecipe = (Button) findViewById(R.id.button2);
@@ -87,6 +88,7 @@ public class NewDishScreen extends AppCompatActivity {
         inputImageId = (ImageView) findViewById(R.id.default_image);
         noRecipeImage = inputImageId.getDrawable();
         recipesListView = (ListView) findViewById(R.id.listview);
+
         inputRecipeName.addTextChangedListener(new TextWatcher(){
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -95,21 +97,23 @@ public class NewDishScreen extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                saveRecipe.setEnabled(String.valueOf(inputRecipeName.getText()).trim().length()>0);
+                //saveRecipe.setEnabled(String.valueOf(inputRecipeName.getText()).trim().length()>0);
 
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
 
+                //Log.d("DMACH","TextChanged");
             }
         });
+
         //inputImageId.setOnClickListener(getPhotoFromGallery);
         saveRecipe.setOnClickListener(recordRecipe);
 
-        if(dbHelper.getRecipeCount() != 0)
-            RecipeArrayList.addAll(dbHelper.getAllRecipes());
-        populateList();
+        //if(dbHelper.getRecipeCount() != 0)
+        //    RecipeArrayList.addAll(dbHelper.getAllRecipes());
+        //populateList();
 
     }
 
@@ -122,7 +126,7 @@ public class NewDishScreen extends AppCompatActivity {
             if(!recipeExists(recipe)) {
                 dbHelper.createRecipe(recipe);
                 RecipeArrayList.add(recipe);
-                arrayAdapter.notifyDataSetChanged();
+                //arrayAdapter.notifyDataSetChanged();
                 Toast.makeText(getApplicationContext(), inputRecipeName.getText().toString() +
                 " has been added. ",
                         Toast.LENGTH_SHORT).show();
@@ -135,6 +139,7 @@ public class NewDishScreen extends AppCompatActivity {
         }
 
     };
+    /*
     public void createRecipeMenu(ContextMenu menu, View view, ContextMenu.ContextMenuInfo menuInfo){
         super.onCreateContextMenu(menu, view, menuInfo);
 
@@ -142,7 +147,7 @@ public class NewDishScreen extends AppCompatActivity {
         menu.setHeaderTitle("Recipes");
         menu.add(Menu.NONE, 1, Menu.NONE, "Delete Recipe");
 
-    }
+    }*/
 
     public boolean recipeExists(Recipe recipe){
         String first = recipe.getName();
@@ -153,12 +158,12 @@ public class NewDishScreen extends AppCompatActivity {
         }
         return false;
     }
-
+/*
     public void populateList(){
-        arrayAdapter = new RecipeListAdapter();
+        //arrayAdapter = new RecipeListAdapter();
         recipesListView.setAdapter(arrayAdapter);
     }
-
+/*
     private class RecipeListAdapter extends ArrayAdapter<Recipe>{
         public RecipeListAdapter(){
             super(getApplicationContext(), R.layout.activity_recipes__screen, RecipeArrayList);
@@ -209,12 +214,12 @@ public class NewDishScreen extends AppCompatActivity {
         int id = item.getItemId();
         /*if(id==R.id.action_settings){
             return true;
-        }*/
+        }
         return super.onOptionsItemSelected(item);
     }
 
-    /*public void saveRecipe(View view) {
-        /*ArrayList<EditText> textList = new ArrayList<EditText>();
+    public void saveRecipe(View view) {
+        ArrayList<EditText> textList = new ArrayList<EditText>();
         for( int i = 0; i < myLayout.getChildCount(); i++ ) {
             if (myLayout.getChildAt(i) instanceof EditText)
                 textList.add((EditText) myLayout.getChildAt(i));
@@ -224,7 +229,7 @@ public class NewDishScreen extends AppCompatActivity {
         String message = editText.getText().toString();
         intent.putExtra(EXTRA_MESSAGE, message);
         startActivity(intent);
-    }*/
+    }
 
-
+*/
 }
