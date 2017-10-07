@@ -18,18 +18,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
-            android:windowSoftInputMode="adjustPan"
             android:name=".NewDishScreen"
             android:parentActivityName=".MainScreenActivity"
-            />
-
-        <activity android:name=".Recipes_Screen"
-            android:parentActivityName=".MainScreenActivity"/>
-
-        <activity android:name=".MealScreen"
-            android:parentActivityName=".MainScreenActivity"></activity>
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".Recipes_Screen"
+            android:parentActivityName=".MainScreenActivity" />
+        <activity
+            android:name=".MealScreen"
+            android:parentActivityName=".MainScreenActivity" />
+        <activity android:name=".RecipeScreenActivity"></activity>
     </application>
 
 </manifest>

@@ -1,5 +1,6 @@
 package cs175.whatsfordinner;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -12,6 +13,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.ContextMenu;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,174 +35,127 @@ import java.util.List;
 import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
 public class NewDishScreen extends AppCompatActivity {
-    EditText editText;
-    Button imageButton;
-    RelativeLayout myLayout;
 
-    DBHelper dbHelper;
-    ArrayAdapter<Recipe> arrayAdapter;
+    protected DBHelper dbHelper;
+    private List<Recipe> recipe;
 
-    List<Recipe> RecipeArrayList = new ArrayList<Recipe>();
+    private MyAdapter adapter;
 
-    Button saveRecipe;
-    ImageView inputImageId;
-    EditText inputRecipeName;
-    EditText inputItems;
-    EditText inputDirection;
-    Drawable noRecipeImage;
+    private String recipeName="";
+    private String ingredients="";
+    private String direct ="";
+    private String wholeRecipe="";
+
+    private EditText name;
+    private EditText item;
+    private EditText direction;
+    private ImageView image;
     Uri defaultImage = Uri.parse("android.resource://cs175.whatsfordinner.res.drawable.default_image");
 
-    Boolean newEntry = true;
-
-    ListView recipesListView;
-    ImageView listViewPhoto;
-    TextView listViewName;
-    TextView listViewItems;
-    TextView listViewDirection;
-
+    List<String> mylist = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_dish_screen);
-        /*imageButton=(Button)findViewById(R.id.button);
 
-        imageButton.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                Uri uri = Uri.parse("http://www.google.com"); // missing 'http://' will cause crashed
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                startActivity(intent);
-
-            }
-
-
-        });
-        myLayout = (RelativeLayout) findViewById( R.id.mylayout );*/
-
-        dbHelper = new DBHelper(getApplicationContext());
-        saveRecipe = (Button) findViewById(R.id.button2);
-        inputRecipeName = (EditText) findViewById(R.id.recipe_name);
-        inputItems = (EditText) findViewById(R.id.item1);
-        inputDirection = (EditText) findViewById(R.id.direction);
-        inputImageId = (ImageView) findViewById(R.id.default_image);
-        noRecipeImage = inputImageId.getDrawable();
-        recipesListView = (ListView) findViewById(R.id.listview);
-
-        inputRecipeName.addTextChangedListener(new TextWatcher(){
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                //saveRecipe.setEnabled(String.valueOf(inputRecipeName.getText()).trim().length()>0);
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-                //Log.d("DMACH","TextChanged");
-            }
-        });
-
-        //inputImageId.setOnClickListener(getPhotoFromGallery);
-        saveRecipe.setOnClickListener(recordRecipe);
-
-        //if(dbHelper.getRecipeCount() != 0)
-        //    RecipeArrayList.addAll(dbHelper.getAllRecipes());
-        //populateList();
-
+        dbHelper = new DBHelper(this);
     }
 
-    public final View.OnClickListener recordRecipe = new View.OnClickListener(){
-        public void onClick(View view){
-            Recipe recipe = new Recipe(dbHelper.getRecipeCount(),
-                    String.valueOf(inputRecipeName.getText().toString()),
-                    String.valueOf(inputItems.getText().toString()),
-                    String.valueOf(inputDirection.getText().toString()), defaultImage);
-            if(!recipeExists(recipe)) {
-                dbHelper.createRecipe(recipe);
-                RecipeArrayList.add(recipe);
-                //arrayAdapter.notifyDataSetChanged();
-                Toast.makeText(getApplicationContext(), inputRecipeName.getText().toString() +
-                " has been added. ",
-                        Toast.LENGTH_SHORT).show();
-                newEntry =true;
-                onResume();
-                return;
-            }
-            Toast.makeText(getApplicationContext(), String.valueOf(inputRecipeName.getText()) + "" +
-                    " has already been added. " + "Use another name. ", Toast.LENGTH_LONG).show();
-        }
+    /*@Override
+    protected void onResume() {
+        super.onResume();
 
-    };
-    /*
-    public void createRecipeMenu(ContextMenu menu, View view, ContextMenu.ContextMenuInfo menuInfo){
-        super.onCreateContextMenu(menu, view, menuInfo);
-
-        menu.setHeaderIcon(R.drawable.recipes);
-        menu.setHeaderTitle("Recipes");
-        menu.add(Menu.NONE, 1, Menu.NONE, "Delete Recipe");
-
+        recipe = dbHelper.getRecipe();
+        adapter = new MyAdapter(this, R.layout.activity_recipes__screen, recipe);
+        ListView listRecipes = (ListView) findViewById(R.id.listview);
     }*/
+    public void saveRecipe(){
+        name = (EditText) findViewById(R.id.recipe_name);
+        item = (EditText) findViewById(R.id.item1);
+        direction = (EditText) findViewById(R.id.direction);
+        image = (ImageView) findViewById(R.id.default_image);
 
-    public boolean recipeExists(Recipe recipe){
-        String first = recipe.getName();
-        int recipeCount = RecipeArrayList.size();
+        String n = name.getText().toString();
+        String i = item.getText().toString();
+        String d = direction.getText().toString();
+
+        if(n.isEmpty()){
+            Toast.makeText(getApplicationContext(), "a recipe name must be entered", Toast.LENGTH_SHORT).show();
+        }else{
+            if(!recipeExists(n)){
+                Recipe recipe = new Recipe();
+                recipe.setName(n);
+                recipe.setItems(i);
+                recipe.setDirection(d);
+                recipe.setImage(defaultImage);
+                dbHelper.createRecipe(recipe);
+
+                recipeName = n;
+                ingredients = i;
+                direct = d;
+
+                recipe.setName("");
+                recipe.setItems("");
+                recipe.setDirection("");
+
+             //   adapter.add(recipe);
+
+                //adapter.notifyDataSetChanged();
+
+            }else{
+                Toast.makeText(getApplicationContext(), "This recipe already exists", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    public void submitRecipe(View view){
+        saveRecipe();
+        Intent launhcRecipe = new Intent(this, Recipes_Screen.class);
+        launhcRecipe.putExtra("recipename", recipeName);
+        launhcRecipe.putExtra("ingredients", ingredients);
+        launhcRecipe.putExtra("direction", direct);
+        startActivity(launhcRecipe);
+    }
+    public List<String> addName(String n){
+        n = name.getText().toString();
+        if(!recipeExists(n))
+            mylist.add(n);
+        return mylist;
+    }
+
+    public List<String> getList(){
+        return mylist;
+    }
+    public boolean recipeExists(String name){
+        mylist = dbHelper.getAllRecipeName();
+        int recipeCount = mylist.size();
         for(int i =0; i<recipeCount; i++){
-            if(first.compareToIgnoreCase(RecipeArrayList.get(i).getName())==0)
+            if(name.compareToIgnoreCase(mylist.get(i))==0)
                 return true;
         }
         return false;
     }
-/*
-    public void populateList(){
-        //arrayAdapter = new RecipeListAdapter();
-        recipesListView.setAdapter(arrayAdapter);
-    }
-/*
-    private class RecipeListAdapter extends ArrayAdapter<Recipe>{
-        public RecipeListAdapter(){
-            super(getApplicationContext(), R.layout.activity_recipes__screen, RecipeArrayList);
+    private class MyAdapter extends ArrayAdapter<Recipe>{
+        Context context;
+        List<Recipe> recipeList = new ArrayList<Recipe>();
+
+        public MyAdapter(Context c, int rId, List<Recipe> objects){
+            super(c, rId, objects);
+            recipeList = objects;
+            context = c;
         }
 
-        @NonNull
         @Override
         public View getView(int position, View view, ViewGroup parent) {
-            if(view == null)
-                view = getLayoutInflater().inflate(R.layout.activity_recipes__screen, parent, false);
-            Recipe currentRecipe = RecipeArrayList.get(position);
-            listViewName = (TextView) view.findViewById(R.id.recipe_name);
-            listViewItems = (TextView) view.findViewById(R.id.item1);
-            listViewDirection = (TextView) view.findViewById(R.id.direction);
-            listViewPhoto = (ImageView) view.findViewById(R.id.default_image);
+            if(view == null){
+                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                view = inflater.inflate(R.layout.recipe_detail, parent, false);
 
-            listViewName.setText(currentRecipe.getName());
-            listViewItems.setText(currentRecipe.getItems());
-            listViewDirection.setText(currentRecipe.getDirection());
-            listViewPhoto.setImageURI(currentRecipe.getImage());
-
+            };
+            Recipe currentRecipe = recipe.get(position);
             return view;
         }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        if(newEntry){
-            inputRecipeName.setText("");
-            inputItems.setText("");
-            inputDirection.setText("");
-            inputImageId.setImageDrawable(noRecipeImage);
-        }
-
-
     }
 
     @Override
@@ -212,24 +167,11 @@ public class NewDishScreen extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        /*if(id==R.id.action_settings){
-            return true;
-        }
+
+       // if(id == R.id.action_settings){
+        //    return true;
+        //}
+
         return super.onOptionsItemSelected(item);
     }
-
-    public void saveRecipe(View view) {
-        ArrayList<EditText> textList = new ArrayList<EditText>();
-        for( int i = 0; i < myLayout.getChildCount(); i++ ) {
-            if (myLayout.getChildAt(i) instanceof EditText)
-                textList.add((EditText) myLayout.getChildAt(i));
-        }
-        Intent intent = new Intent(this, Recipes_Screen.class);
-        EditText editText = (EditText) findViewById(R.id.recipe_name);
-        String message = editText.getText().toString();
-        intent.putExtra(EXTRA_MESSAGE, message);
-        startActivity(intent);
-    }
-
-*/
 }

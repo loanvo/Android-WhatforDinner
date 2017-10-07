@@ -13,13 +13,16 @@ public class Recipe {
     private String direction;
     private Uri image;
 
-    public Recipe(int id, String n, String ingre, String dir, Uri imageUri){
+    public Recipe(){
+
+    }
+   /* public Recipe(int id, String n, String ingre, String dir, Uri imageUri){
         _id = id;
         name = n;
         ingredients = ingre;
         direction = dir;
         image = imageUri;
-    }
+    }*/
     public int getID(){
         return _id;
     }
@@ -38,6 +41,25 @@ public class Recipe {
 
     public Uri getImage(){
         return image;
+    }
+
+    public void setId(int id){
+        _id = id;
+    }
+
+    public void setName(String n){
+        name = n;
+    }
+
+    public void setImage(Uri igm){
+        image = igm;
+    }
+    public void setItems(String i){
+        ingredients = i;
+    }
+
+    public void setDirection(String d){
+        direction = d;
     }
 
 
