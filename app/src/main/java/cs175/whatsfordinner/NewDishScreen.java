@@ -60,6 +60,8 @@ public class NewDishScreen extends AppCompatActivity {
         setContentView(R.layout.activity_new_dish_screen);
 
         dbHelper = new DBHelper(this);
+
+
     }
 
     /*@Override
@@ -98,7 +100,6 @@ public class NewDishScreen extends AppCompatActivity {
                 recipe.setName("");
                 recipe.setItems("");
                 recipe.setDirection("");
-
              //   adapter.add(recipe);
 
                 //adapter.notifyDataSetChanged();
@@ -121,12 +122,10 @@ public class NewDishScreen extends AppCompatActivity {
         n = name.getText().toString();
         if(!recipeExists(n))
             mylist.add(n);
+
         return mylist;
     }
 
-    public List<String> getList(){
-        return mylist;
-    }
     public boolean recipeExists(String name){
         mylist = dbHelper.getAllRecipeName();
         int recipeCount = mylist.size();
