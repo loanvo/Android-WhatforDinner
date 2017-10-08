@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:baselineAligned="false"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/portrait_recipe"
+    >
+<fragment
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    class="cs175.whatsfordinner.MyFragment"
+    tools:layout="@layout/list_fragment"
+    android:id="@+id/fragment1"></fragment>
+
+
+
+
+
+</LinearLayout>
