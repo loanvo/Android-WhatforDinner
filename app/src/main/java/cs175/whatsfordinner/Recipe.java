@@ -11,7 +11,7 @@ import java.util.List;
 public class Recipe {
     private int _id;
     private String name;
-    private String ingredients;
+    private List<String> ingredients;
     private String direction;
     private Uri image;
 
@@ -33,7 +33,7 @@ public class Recipe {
         return name;
     }
 
-    public String getItems(){
+    public List<String> getItems(){
         return ingredients;
     }
 
@@ -57,7 +57,7 @@ public class Recipe {
         image = igm;
     }
 
-    public void setItems(String i){
+    public void setItems(List<String> i){
         ingredients = i;
     }
 

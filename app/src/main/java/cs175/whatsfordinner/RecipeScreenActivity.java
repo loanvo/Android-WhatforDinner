@@ -16,10 +16,9 @@ import java.util.EmptyStackException;
 import java.util.List;
 
 public class RecipeScreenActivity extends AppCompatActivity implements MyFragment.OnItemSelectedListener{
+
     protected DBHelper dbHelper;
     private List<String> mylist = new ArrayList<String>();
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +40,7 @@ public class RecipeScreenActivity extends AppCompatActivity implements MyFragmen
     public void OnRecipeSelected(String recipeName) {
         DetailFragment detail = (DetailFragment) getFragmentManager().findFragmentById(R.id.fragment2);
         Recipe recipeInfo = dbHelper.getRecipeByName(recipeName);
+        Log.d("GetRcpi", recipeInfo.getImage().toString());
         mylist = dbHelper.getAllRecipeName();
         if(detail != null && detail.isInLayout()){
             // Landscape
@@ -50,47 +50,22 @@ public class RecipeScreenActivity extends AppCompatActivity implements MyFragmen
             if(recipeInfo == null){
                 throw new EmptyStackException();
             }else{
-                String item = recipeInfo.getItems();
+                List<String> items = recipeInfo.getItems();
+                String itemString = "";
+                for(int i =0; i<items.size(); i++){
+                    itemString += "* " + items.get(i) + "\n";
+                }
+
                 String direction = recipeInfo.getDirection();
                 Uri image = recipeInfo.getImage();
 
-               /* DetailFragment detailFragment = new DetailFragment();
-                detailFragment.updateDetail(recipeInfo);
-
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-
-                // Replace whatever is in the fragment_container view with this fragment,
-                // and add the transaction to the back stack so the user can navigate back
-                transaction.replace(R.id.fragment1, R.id.fragment2);
-                transaction.addToBackStack(null);
-
-                // Commit the transaction
-                transaction.commit();*/
-
                 Intent intent = new Intent(this, Recipes_Screen.class);
                 intent.putExtra("recipename", recipeName);
-                intent.putExtra("ingredients", item);
+                intent.putExtra("ingredients", itemString);
                 intent.putExtra("direction", direction);
                 intent.putExtra("image", image.toString());
                 startActivity(intent);
             }
-
-
         }
-    }
-
-    /*public void onRecipeSelected(String link){
-        DetailFragment detail = (DetailFragment) getFragmentManager().findFragmentById(R.id.fragment2);
-
-        if(detail != null && detail.isInLayout()){
-            detail.setText(link);
-        }else{
-            Intent intent = new Intent(this, Recipes_Screen.class);
-        }
-    }*/
-    public void displayList (View view){
-
-
-
     }
 }

@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.List;
+
 /**
  * Created by loanvo on 10/7/17.
  */
@@ -34,8 +36,12 @@ public class DetailFragment extends Fragment {
         String name = recipe.getName();
         recipename.setText(name);
 
-        String items = recipe.getItems();
-        ingredients.setText(items);
+        List<String> items = recipe.getItems();
+        String itemString = "";
+        for(int i =0; i<items.size(); i++){
+            itemString += "* " + items.get(i) + "\n";
+        }
+        ingredients.setText(itemString);
 
         String dir = recipe.getDirection();
         direction.setText(dir);

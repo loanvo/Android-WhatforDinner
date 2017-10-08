@@ -10,13 +10,14 @@ import android.util.Log;
 
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
  * Created by loanvo on 10/5/17.
  */
 public class DBHelper extends SQLiteOpenHelper{
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
     private static final String DATABASE_NAME = "Recipes";
     private static final String TABLE_NAME = "new_Recipes";
 
@@ -183,7 +184,9 @@ public class DBHelper extends SQLiteOpenHelper{
             do {
                 Recipe recipe = new Recipe();
                 recipe.setId (cursor.getInt(0));
-                recipe.setItems(cursor.getString(2).toString());
+                String itemString = cursor.getString(2);
+                List<String> items = Arrays.asList(itemString.substring(1, itemString.length() - 1).replaceAll("\\s", "").split(","));
+                recipe.setItems (items);
                 recipe.setDirection(cursor.getString(3));
                 recipe.setImage(Uri.parse(cursor.getString(4)));
             } while(cursor.moveToNext());
@@ -200,7 +203,9 @@ public class DBHelper extends SQLiteOpenHelper{
 
         if(cursor.moveToFirst()){
             recipeInfo.setName (cursor.getString(1));
-            recipeInfo.setItems (cursor.getString(2).toString());
+            String itemString = cursor.getString(2);
+            List<String> items = Arrays.asList(itemString.substring(1, itemString.length() - 1).replaceAll("\\s", "").split(","));
+            recipeInfo.setItems (items);
             recipeInfo.setDirection (cursor.getString(3));
             recipeInfo.setImage(Uri.parse(cursor.getString(4)));
         }else{
@@ -238,7 +243,7 @@ public class DBHelper extends SQLiteOpenHelper{
         ContentValues values = new ContentValues();
 
         values.put(KEY_NAME, recipe.getName());
-        values.put(KEY_ITEMS, recipe.getItems());
+        //values.put(KEY_ITEMS, recipe.getItems());
         values.put(KEY_DIRECTION, recipe.getDirection());
         values.put(KEY_IMAGEURI, recipe.getImage().toString());
 
