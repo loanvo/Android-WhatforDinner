@@ -144,7 +144,7 @@ public class DBHelper extends SQLiteOpenHelper{
         ContentValues values = new ContentValues();
 
         values.put(KEY_NAME, recipe.getName());
-        values.put(KEY_ITEMS, recipe.getItems());
+        values.put(KEY_ITEMS, recipe.getItems().toString());
         values.put(KEY_DIRECTION, recipe.getDirection());
         values.put(KEY_IMAGEURI, recipe.getImage().toString());
 
@@ -183,12 +183,46 @@ public class DBHelper extends SQLiteOpenHelper{
             do {
                 Recipe recipe = new Recipe();
                 recipe.setId (cursor.getInt(0));
-                recipe.setItems(cursor.getString(1));
+                recipe.setItems(cursor.getString(2).toString());
                 recipe.setDirection(cursor.getString(3));
                 recipe.setImage(Uri.parse(cursor.getString(4)));
             } while(cursor.moveToNext());
         }
         return recipesList;
+    }
+
+    public Recipe getRecipeByName(String name){
+        Recipe recipeInfo = new Recipe();
+
+        String selectQuery = "SELECT * FROM " + TABLE_NAME + " WHERE " + KEY_NAME + " = " + "'"+ name +"'";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if(cursor.moveToFirst()){
+            recipeInfo.setName (cursor.getString(1));
+            recipeInfo.setItems (cursor.getString(2).toString());
+            recipeInfo.setDirection (cursor.getString(3));
+            recipeInfo.setImage(Uri.parse(cursor.getString(4)));
+        }else{
+            return null;
+        }
+        return recipeInfo;
+    }
+
+    public List<String> getIngredients(){
+        List<String> ingredient_list = new ArrayList<String>();
+        String selectQuery = "SELECT " + KEY_ITEMS + " FROM " + TABLE_NAME;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if(cursor.moveToFirst()){
+            do{
+                ingredient_list.add(cursor.getString(2));
+            }while(cursor.moveToNext());
+        }else{
+            return null;
+        }
+        return ingredient_list;
     }
 
     public void deleteAll(List<Recipe> list){

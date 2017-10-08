@@ -28,7 +28,12 @@
         <activity
             android:name=".MealScreen"
             android:parentActivityName=".MainScreenActivity" />
-        <activity android:name=".RecipeScreenActivity"></activity>
+        <activity android:name=".RecipeScreenActivity" />
+        <activity
+            android:name=".GroceriesScreenActivity"
+            android:label="@string/title_activity_groceries_screen"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".GroceriesScreen"></activity>
     </application>
 
 </manifest>

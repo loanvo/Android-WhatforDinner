@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:baselineAligned="false"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="horizontal">
+
+    <fragment
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:id="@+id/fragment1"
+        class="cs175.whatsfordinner.MyFragment"
+        tools:layout="@layout/list_fragment"></fragment>
+
+    <fragment
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:id="@+id/fragment2"
+        class="cs175.whatsfordinner.DetailFragment"
+        tools:layout="@layout/recipe_detail_fragment"></fragment>
+
+</LinearLayout>
+    
+
+<!--
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/recipes"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="30dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView"
+            android:text="Recipes"
+            android:textSize="20dp"
+            android:layout_centerHorizontal="true"
+            android:layout_toEndOf="@id/imageView1"
+            android:layout_toRightOf="@id/imageView1"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="60dp"
+            android:textColor="@color/colorPrimaryDark"/>
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_below="@id/imageView1"
+            android:id="@+id/listView"
+            >
+
+        </ListView>
+
+    </RelativeLayout>
+-->
+
+
+

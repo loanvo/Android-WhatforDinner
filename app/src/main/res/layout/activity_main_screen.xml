@@ -58,7 +58,8 @@
             android:layout_below="@+id/meals"
             android:drawableTop="@drawable/groceries"
             android:text="Groceries"
-            tools:background="@android:color/transparent"
+            tools:background="@android:color/white"
+            android:onClick="getIngredients"
              />
 
         <Button
@@ -67,7 +68,7 @@
             android:layout_height="110dp"
             android:drawableTop="@drawable/new_dish"
             android:text="New Dish"
-            tools:background="@android:color/transparent"
+            tools:background="@android:color/white"
             android:layout_below="@+id/recipes"
             android:layout_alignLeft="@+id/recipes"
             android:layout_alignStart="@+id/recipes"
@@ -80,7 +81,7 @@
             android:layout_height="110dp"
             android:drawableTop="@drawable/recipes"
             android:text="Recipes"
-            tools:background="@android:color/transparent"
+            tools:background="@android:color/white"
             android:layout_below="@+id/imageView"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"

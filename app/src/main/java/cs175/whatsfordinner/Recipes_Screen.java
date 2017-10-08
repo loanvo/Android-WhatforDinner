@@ -1,12 +1,19 @@
 package cs175.whatsfordinner;
 
 import android.content.Intent;
+import android.net.Uri;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.List;
+
 public class Recipes_Screen extends AppCompatActivity {
+
+    List<String> wholeRecipe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,6 +23,7 @@ public class Recipes_Screen extends AppCompatActivity {
         TextView recipename = (TextView) findViewById(R.id.textView2);
         TextView ingredients = (TextView) findViewById(R.id.textView3);
         TextView direction = (TextView) findViewById(R.id.textView4);
+        ImageView imageView = (ImageView) findViewById(R.id.imageView);
         Intent intent = getIntent();
 
         String name;
@@ -29,6 +37,11 @@ public class Recipes_Screen extends AppCompatActivity {
         String dir;
         dir = intent.getStringExtra("direction");
         direction.setText(dir);
+
+        String igm;
+        igm = intent.getStringExtra("image");
+        //wholeRecipe.add(name + " " + items + " " + dir);
+
     }
 
     public void getDataEntry(View view){
@@ -36,3 +49,4 @@ public class Recipes_Screen extends AppCompatActivity {
     }
 
 }
+

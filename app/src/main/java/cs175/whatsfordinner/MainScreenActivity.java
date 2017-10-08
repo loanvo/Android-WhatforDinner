@@ -33,7 +33,11 @@ public class MainScreenActivity extends AppCompatActivity {
 
     public void getRecipeList(View view){
         Intent intent = new Intent(this, RecipeScreenActivity.class);
-        //intent.putExtra("recipelist",list.toString());
+        startActivity(intent);
+    }
+
+    public void getIngredients(View view){
+        Intent intent = new Intent(this, GroceriesScreen.class);
         startActivity(intent);
     }
 

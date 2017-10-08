@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -77,6 +78,8 @@ public class NewDishScreen extends AppCompatActivity {
         item = (EditText) findViewById(R.id.item1);
         direction = (EditText) findViewById(R.id.direction);
         image = (ImageView) findViewById(R.id.default_image);
+
+
 
         String n = name.getText().toString();
         String i = item.getText().toString();

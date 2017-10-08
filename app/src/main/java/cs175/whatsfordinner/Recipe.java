@@ -2,6 +2,8 @@ package cs175.whatsfordinner;
 
 import android.net.Uri;
 
+import java.util.List;
+
 /**
  * Created by loanvo on 10/3/17.
  */
@@ -54,6 +56,7 @@ public class Recipe {
     public void setImage(Uri igm){
         image = igm;
     }
+
     public void setItems(String i){
         ingredients = i;
     }
