@@ -36,9 +36,8 @@ public class MainScreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main_screen);
 
         image = (ImageView) findViewById(R.id.imageView);
-        //Handle long press
-        image.setOnLongClickListener(new View.OnLongClickListener() {
-            public boolean onLongClick(View view) {
+        image.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
                 AlertDialog alertDialog = new AlertDialog.Builder(view.getContext()).create();
                 alertDialog.setTitle("");
                 alertDialog.setMessage("Author:   Loan Vo" + "\n" + "Version:   1.0" + "\n"
@@ -51,8 +50,6 @@ public class MainScreenActivity extends AppCompatActivity {
                             }
                         });
                 alertDialog.show();
-
-                return true;
             }
         });
 
