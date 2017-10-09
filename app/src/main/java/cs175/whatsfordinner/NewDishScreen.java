@@ -79,7 +79,7 @@ public class NewDishScreen extends AppCompatActivity {
         Intent intent = getIntent();
         String recipename = intent.getStringExtra("recipename");
         EditMode = false;
-        if (!recipename.isEmpty()) {
+        if (recipename != null) {
             EditMode = true;
             // Fill in textboxes with current info
             name = (EditText) findViewById(R.id.recipe_name);
