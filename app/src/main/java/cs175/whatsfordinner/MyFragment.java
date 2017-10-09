@@ -2,7 +2,9 @@ package cs175.whatsfordinner;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +39,25 @@ public class MyFragment extends Fragment{
             }
         });
 
+        //Handle long press
+        mylistView.setOnLongClickListener(new View.OnLongClickListener() {
+            public boolean onLongClick(View view) {
+                AlertDialog alertDialog = new AlertDialog.Builder(view.getContext()).create();
+                alertDialog.setTitle("");
+                alertDialog.setMessage("Author:   Loan Vo" + "\n" + "Version:   1.0" + "\n"
+                        + "Link for help:   https://developer.android.com/develop/index.html"
+                        + "\n\n" + "Copyright © Loan Vo, 2017");
+                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                alertDialog.show();
+
+                return true;
+            }
+        });
         return view;
     }
 
