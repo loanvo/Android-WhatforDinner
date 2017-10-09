@@ -46,6 +46,7 @@ public class NewDishScreen extends AppCompatActivity {
     private List<String> ingredients=new ArrayList<String>();
     private String direct ="";
 
+    private boolean  EditMode;
     private EditText name;
     private EditText item1;
     private EditText item2;
@@ -73,6 +74,52 @@ public class NewDishScreen extends AppCompatActivity {
         setContentView(R.layout.activity_new_dish_screen);
 
         dbHelper = new DBHelper(this);
+
+        // If data is passed in, it is in edit mode
+        Intent intent = getIntent();
+        String recipename = intent.getStringExtra("recipename");
+        EditMode = false;
+        if (!recipename.isEmpty()) {
+            EditMode = true;
+            // Fill in textboxes with current info
+            name = (EditText) findViewById(R.id.recipe_name);
+            name.setText(recipename);
+
+            item1 = (EditText) findViewById(R.id.item1);
+            String item = intent.getStringExtra("ingredients1");
+            item1.setText(item);
+            item2 = (EditText) findViewById(R.id.item2);
+            item = intent.getStringExtra("ingredients2");
+            item2.setText(item);
+            item3 = (EditText) findViewById(R.id.item3);
+            item = intent.getStringExtra("ingredients3");
+            item3.setText(item);
+            item4 = (EditText) findViewById(R.id.item4);
+            item = intent.getStringExtra("ingredients4");
+            item4.setText(item);
+            item5 = (EditText) findViewById(R.id.item5);
+            item = intent.getStringExtra("ingredients5");
+            item5.setText(item);
+            item6 = (EditText) findViewById(R.id.item6);
+            item = intent.getStringExtra("ingredients6");
+            item6.setText(item);
+            item7 = (EditText) findViewById(R.id.item7);
+            item = intent.getStringExtra("ingredients7");
+            item7.setText(item);
+            item8 = (EditText) findViewById(R.id.item8);
+            item = intent.getStringExtra("ingredients8");
+            item8.setText(item);
+            item9 = (EditText) findViewById(R.id.item9);
+            item = intent.getStringExtra("ingredients9");
+            item9.setText(item);
+            item10 = (EditText) findViewById(R.id.item10);
+            item = intent.getStringExtra("ingredients10");
+            item10.setText(item);
+
+            direction = (EditText) findViewById(R.id.direction);
+            String dir = intent.getStringExtra("direction");
+            direction.setText(dir);
+        }
 
         //get Image for the new recipe
         Button imageButton=(Button)findViewById(R.id.button);
@@ -156,6 +203,10 @@ public class NewDishScreen extends AppCompatActivity {
                 recipe.setItems(itemList);
                 recipe.setDirection(d);
                 recipe.setImage(defaultImage);
+
+                if(EditMode) {
+                    dbHelper.removeRecipe(n);
+                }
                 dbHelper.createRecipe(recipe);
 
                 recipeName = n;
@@ -196,6 +247,7 @@ public class NewDishScreen extends AppCompatActivity {
     }
 
     public boolean recipeExists(String name){
+        if (EditMode) return false;
         mylist = dbHelper.getAllRecipeName();
         int recipeCount = mylist.size();
         for(int i =0; i<recipeCount; i++){

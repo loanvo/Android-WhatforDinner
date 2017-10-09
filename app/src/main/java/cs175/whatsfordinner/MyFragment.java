@@ -3,6 +3,7 @@ package cs175.whatsfordinner;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -39,22 +40,24 @@ public class MyFragment extends Fragment{
             }
         });
 
-        //Handle long press
-        mylistView.setOnLongClickListener(new View.OnLongClickListener() {
-            public boolean onLongClick(View view) {
-                AlertDialog alertDialog = new AlertDialog.Builder(view.getContext()).create();
-                alertDialog.setTitle("");
-                alertDialog.setMessage("Author:   Loan Vo" + "\n" + "Version:   1.0" + "\n"
-                        + "Link for help:   https://developer.android.com/develop/index.html"
-                        + "\n\n" + "Copyright © Loan Vo, 2017");
-                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        });
-                alertDialog.show();
+        mylistView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String recipeName = arrayAdapter.getItem(i);
+                dbHelper = new DBHelper(getActivity());
+                Recipe recipeInfo = dbHelper.getRecipeByName(recipeName);
 
+                Intent intent = new Intent(getActivity(), NewDishScreen.class);
+
+                intent.putExtra("recipename", recipeName);
+
+                List<String> items = recipeInfo.getItems();
+                for(int k =0; k<items.size(); k++){
+                    intent.putExtra("ingredients"+Integer.toString(k), items.get(k));
+                }
+
+                intent.putExtra("direction", recipeInfo.getDirection());
+                startActivity(intent);
                 return true;
             }
         });

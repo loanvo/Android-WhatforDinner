@@ -125,6 +125,12 @@ public class DBHelper extends SQLiteOpenHelper{
         return recipesList;
     }
 
+    public void removeRecipe (String name) {
+        String selectQuery = "DELETE FROM " + TABLE_NAME + " WHERE " + KEY_NAME + " = " + "'" + name + "'";
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL(selectQuery);
+    }
+
     public Recipe getRecipeByName(String name){
         Recipe recipeInfo = new Recipe();
 
