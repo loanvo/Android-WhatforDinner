@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -47,19 +48,43 @@ public class MealScreen extends AppCompatActivity {
             R.id.dinner7,
     };
 
+    private List<Long> recipeSelected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meal_screen);
 
+        recipeSelected = new ArrayList<Long>();
+
         meals = dbHelper.getAllRecipeName();
+        meals.add(0,"Eating out");
         String mealString = "";
 
+        for (int i=0; i < spin_ids.length; i++) {
+            Spinner spin = (Spinner) findViewById(spin_ids[i]);
+            spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+                }
+
+                public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                    if(pos > 0) {
+                        recipeSelected.add(new Long(id));
+                        meals.remove(pos);
+                    }
+                }
+            });
+        }
+
+        updateSpinner();
+    }
+
+    private void updateSpinner() {
         ArrayAdapter<String> arrayAdapter;
         spinners = new ArrayList<Spinner>();
-
         for (int i=0; i < spin_ids.length; i++) {
+            if(recipeSelected.contains(spin_ids[i])) continue;
             Spinner spin = (Spinner) findViewById(spin_ids[i]);
             arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, meals);
             arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
