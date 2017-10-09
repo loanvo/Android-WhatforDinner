@@ -41,7 +41,6 @@ public class RecipeScreenActivity extends AppCompatActivity implements MyFragmen
         DetailFragment detail = (DetailFragment) getFragmentManager().findFragmentById(R.id.fragment2);
         Recipe recipeInfo = dbHelper.getRecipeByName(recipeName);
         Log.d("GetRcpi", recipeInfo.getImage().toString());
-        mylist = dbHelper.getAllRecipeName();
         if(detail != null && detail.isInLayout()){
             // Landscape
             detail.updateDetail(recipeInfo);

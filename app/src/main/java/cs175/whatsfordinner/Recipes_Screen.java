@@ -41,7 +41,6 @@ public class Recipes_Screen extends AppCompatActivity {
         String igm;
         igm = intent.getStringExtra("image");
         imageView.setImageURI(Uri.parse(igm));
-        //wholeRecipe.add(name + " " + items + " " + dir);
 
     }
 

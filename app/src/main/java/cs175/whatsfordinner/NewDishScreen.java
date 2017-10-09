@@ -85,10 +85,6 @@ public class NewDishScreen extends AppCompatActivity {
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
-
-                /*Uri uri = Uri.parse("http://www.google.com"); // missing 'http://' will cause crashed
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                startActivity(intent);*/
             }
         });
         RelativeLayout myLayout = (RelativeLayout) findViewById( R.id.mylayout );
@@ -133,7 +129,7 @@ public class NewDishScreen extends AppCompatActivity {
         item9 = (EditText) findViewById(R.id.item9);
         item10 = (EditText) findViewById(R.id.item10);
         direction = (EditText) findViewById(R.id.direction);
-        //image = (ImageView) findViewById(R.id.default_image);
+        image = (ImageView) findViewById(R.id.default_image);
 
 
 
@@ -150,7 +146,7 @@ public class NewDishScreen extends AppCompatActivity {
         itemList.add(item9.getText().toString());
         itemList.add(item10.getText().toString());
         String d = direction.getText().toString();
-        //Uri igm = Uri.parse(image.toString());
+        Uri igm = Uri.parse(image.toString());
         if(n.isEmpty()){
             Toast.makeText(getApplicationContext(), "a recipe name must be entered", Toast.LENGTH_SHORT).show();
         }else{
@@ -169,10 +165,6 @@ public class NewDishScreen extends AppCompatActivity {
                 recipe.setName("");
                 recipe.setItems(new ArrayList<String>());
                 recipe.setDirection("");
-             //   adapter.add(recipe);
-
-                //adapter.notifyDataSetChanged();
-
             }else{
                 Toast.makeText(getApplicationContext(), "This recipe already exists", Toast.LENGTH_SHORT).show();
             }
@@ -227,7 +219,6 @@ public class NewDishScreen extends AppCompatActivity {
             if(view == null){
                 LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 view = inflater.inflate(R.layout.recipe_detail, parent, false);
-
             };
             Recipe currentRecipe = recipe.get(position);
             return view;
@@ -243,11 +234,6 @@ public class NewDishScreen extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
-       // if(id == R.id.action_settings){
-        //    return true;
-        //}
-
         return super.onOptionsItemSelected(item);
     }
 }

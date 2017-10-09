@@ -48,98 +48,7 @@ public class DBHelper extends SQLiteOpenHelper{
         onCreate(db);
     }
 
-    /*public void createRecipe(Recipe recipe){
-        SQLiteDatabase db = getWritableDatabase();
-
-        String insert = "INSERT or replace INTO " + TABLE_NAME + "("
-                + KEY_NAME + ", " + KEY_ITEMS + ", " + KEY_DIRECTION + ", "
-                + KEY_IMAGEURI + ") "
-                + "VALUES( '" + recipe.getName()
-                + "','" + recipe.getItems() + "', '" + recipe.getDirection()
-                + "', '" + recipe.getImage() + "')";
-        db.execSQL(insert);
-        db.close();
-    }
-
-    public Recipe getRecipe(int id){
-        SQLiteDatabase db = getReadableDatabase();
-
-        Cursor cursor = db.query(TABLE_NAME, new String[]{
-                KEY_ID, KEY_NAME, KEY_ITEMS, KEY_DIRECTION, KEY_IMAGEURI},
-                KEY_ID + "=?", new String[]{String.valueOf(id)}, null, null, null, null);
-        if(cursor != null){
-            cursor.moveToFirst();
-        }
-
-        Recipe recipe = new Recipe(Integer.parseInt(
-                cursor.getString(0)),
-                cursor.getString(1),
-                cursor.getString(2),
-                cursor.getString(3),
-                Uri.parse(cursor.getString(4)));
-        db.close();
-        cursor.close();
-        return recipe;
-    }
-
-    public void deleteRecipe(Recipe recipe){
-        SQLiteDatabase db = getWritableDatabase();
-
-        db.delete(TABLE_NAME, KEY_ID + "=?", new String[]{String.valueOf(recipe.getID())});
-        db.close();
-    }
-
-    public int getRecipeCount(){
-        SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
-        int count = cursor.getCount();
-        db.close();
-        cursor.close();
-
-        return count;
-    }
-    public int updateRecipe(Recipe recipe){
-        SQLiteDatabase db = getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(KEY_NAME, recipe.getName());
-        values.put(KEY_ITEMS, recipe.getItems());
-        values.put(KEY_DIRECTION, recipe.getDirection());
-        values.put(KEY_IMAGEURI, recipe.getImage().toString());
-
-        int rowAffected =db.update(
-                TABLE_NAME,
-                values,
-                KEY_ID + "=?", new String[]{String.valueOf(recipe.getID())}
-        );
-        db.close();
-        return rowAffected;
-    }
-
-    public List<Recipe> getAllRecipes(){
-        List<Recipe> allRecipes = new ArrayList<Recipe>();
-
-        SQLiteDatabase db = getWritableDatabase();
-        Cursor cursor =db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
-        if(cursor.moveToFirst()){
-            do{
-                allRecipes.add(new Recipe(Integer.parseInt(
-                        cursor.getString(0)),
-                        cursor.getString(1),
-                        cursor.getString(2),
-                        cursor.getString(3),Uri.parse(cursor.getString(4))));
-
-            }
-            while (cursor.moveToNext());
-
-        }
-        cursor.close();
-        db.close();
-        return allRecipes;
-    }
-
-    */
-
+    //save new recipe to database
     public void createRecipe(Recipe recipe){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -155,6 +64,7 @@ public class DBHelper extends SQLiteOpenHelper{
         db.close();
     }
 
+    //get all name of recipe in database
     public List<String> getAllRecipeName(){
         List<String> recipesNameList = new ArrayList<String>();
 
@@ -172,6 +82,27 @@ public class DBHelper extends SQLiteOpenHelper{
         }
         return recipesNameList;
     }
+
+    //get all ingredients from all recipes in database
+    public List<String> getAllIngredients(){
+        List<String> Ingredients = new ArrayList<String>();
+
+        String selectQuery = "SELECT DISTINCT " + KEY_ITEMS + " FROM " + TABLE_NAME;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if(cursor.moveToFirst()){
+            do {
+                String itemString = cursor.getString(0);
+                List<String> items = Arrays.asList(itemString.substring(1, itemString.length() - 1).replaceAll("\\s", "").split(","));
+                Ingredients.addAll(items);
+            } while(cursor.moveToNext());
+        }
+        return Ingredients;
+    }
+
+    // get recipe detail
     public List<Recipe> getRecipe(){
         List<Recipe> recipesList = new ArrayList<Recipe>();
 
@@ -229,6 +160,7 @@ public class DBHelper extends SQLiteOpenHelper{
         }
         return ingredient_list;
     }
+
 
     public void deleteAll(List<Recipe> list){
         list.clear();
