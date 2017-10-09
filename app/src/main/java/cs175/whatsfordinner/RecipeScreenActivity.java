@@ -66,7 +66,8 @@ public class RecipeScreenActivity extends AppCompatActivity implements MyFragmen
                 intent.putExtra("recipename", recipeName);
                 intent.putExtra("ingredients", itemString);
                 intent.putExtra("direction", direction);
-                intent.putExtra("image", image.toString());
+                //intent.putExtra("image", image.toString());
+                intent.putExtra("image", "");
                 startActivity(intent);
             }
         }

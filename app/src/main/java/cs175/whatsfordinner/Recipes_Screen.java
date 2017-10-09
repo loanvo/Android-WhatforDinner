@@ -40,8 +40,9 @@ public class Recipes_Screen extends AppCompatActivity {
 
         String igm;
         igm = intent.getStringExtra("image");
-        imageView.setImageURI(Uri.parse(igm));
-
+        if(!igm.isEmpty()) {
+            imageView.setImageURI(Uri.parse(igm));
+        }
     }
 
     public void getDataEntry(View view){

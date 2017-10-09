@@ -47,6 +47,6 @@ public class DetailFragment extends Fragment {
         direction.setText(dir);
 
         Uri igm = recipe.getImage();
-        imageView.setImageURI(igm);
+        //imageView.setImageURI(igm);
     }
 }
