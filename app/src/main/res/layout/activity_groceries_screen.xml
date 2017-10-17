@@ -22,12 +22,23 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:orientation="horizontal">
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Groceries"
+            android:textColor="@color/colorPrimaryDark"
+            android:id="@+id/groceries_title"
+            android:gravity="center_vertical"
+            android:textSize="25dp"
+            android:textAlignment="center"/>
 
         <ListView
             android:id="@+id/groceries_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_below="@id/groceries_title">
 
         </ListView>
 

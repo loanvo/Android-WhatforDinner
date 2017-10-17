@@ -27,20 +27,24 @@
                 android:text="Monday"
                 android:textSize="25sp"
                 android:layout_marginTop="20dp"
-                android:layout_marginLeft="20dp"/>
+                android:layout_marginLeft="20dp"
+                android:textColor="@color/colorPrimaryDark"/>
             <Spinner
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/break2"
+                android:layout_marginLeft="30dp"
                 ></Spinner>
             <Spinner
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/lunch2"></Spinner>
+                android:id="@+id/lunch2"
+                android:layout_marginLeft="30dp"></Spinner>
             <Spinner
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/dinner2"></Spinner>
+                android:id="@+id/dinner2"
+                android:layout_marginLeft="30dp"></Spinner>
         </LinearLayout>
 
         <LinearLayout
@@ -54,19 +58,23 @@
                 android:text="Tuesday"
                 android:textSize="25sp"
                 android:layout_marginTop="20dp"
-                android:layout_marginLeft="20dp"/>
+                android:layout_marginLeft="20dp"
+                android:textColor="@color/colorPrimaryDark"/>
             <Spinner
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/break3"></Spinner>
+                android:id="@+id/break3"
+                android:layout_marginLeft="30dp"></Spinner>
             <Spinner
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/lunch3"></Spinner>
+                android:id="@+id/lunch3"
+                android:layout_marginLeft="30dp"></Spinner>
             <Spinner
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/dinner3"></Spinner>
+                android:id="@+id/dinner3"
+                android:layout_marginLeft="30dp"></Spinner>
 
         </LinearLayout>
         <LinearLayout
@@ -80,19 +88,23 @@
                 android:text="Wednesday"
                 android:textSize="25sp"
                 android:layout_marginTop="20dp"
-                android:layout_marginLeft="20dp"/>
+                android:layout_marginLeft="20dp"
+                android:textColor="@color/colorPrimaryDark"/>
             <Spinner
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/break4"></Spinner>
+                android:id="@+id/break4"
+                android:layout_marginLeft="30dp"></Spinner>
             <Spinner
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/lunch4"></Spinner>
+                android:id="@+id/lunch4"
+                android:layout_marginLeft="30dp"></Spinner>
             <Spinner
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/dinner4"></Spinner>
+                android:id="@+id/dinner4"
+                android:layout_marginLeft="30dp"></Spinner>
 
         </LinearLayout>
         <LinearLayout
@@ -106,19 +118,23 @@
                 android:text="Thursday"
                 android:textSize="25sp"
                 android:layout_marginTop="20dp"
-                android:layout_marginLeft="20dp"/>
+                android:layout_marginLeft="20dp"
+                android:textColor="@color/colorPrimaryDark"/>
             <Spinner
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/break5"></Spinner>
+                android:id="@+id/break5"
+                android:layout_marginLeft="30dp"></Spinner>
             <Spinner
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/lunch5"></Spinner>
+                android:id="@+id/lunch5"
+                android:layout_marginLeft="30dp"></Spinner>
             <Spinner
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/dinner5"></Spinner>
+                android:id="@+id/dinner5"
+                android:layout_marginLeft="30dp"></Spinner>
 
         </LinearLayout>
         <LinearLayout
@@ -132,19 +148,23 @@
                 android:text="Friday"
                 android:textSize="25sp"
                 android:layout_marginTop="20dp"
-                android:layout_marginLeft="20dp"/>
+                android:layout_marginLeft="20dp"
+                android:textColor="@color/colorPrimaryDark"/>
             <Spinner
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/break6"></Spinner>
+                android:id="@+id/break6"
+                android:layout_marginLeft="30dp"></Spinner>
             <Spinner
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/lunch6"></Spinner>
+                android:id="@+id/lunch6"
+                android:layout_marginLeft="30dp"></Spinner>
             <Spinner
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/dinner6"></Spinner>
+                android:id="@+id/dinner6"
+                android:layout_marginLeft="30dp"></Spinner>
 
         </LinearLayout>
         <LinearLayout
@@ -158,19 +178,23 @@
                 android:text="Saturday"
                 android:textSize="25sp"
                 android:layout_marginTop="20dp"
-                android:layout_marginLeft="20dp"/>
+                android:layout_marginLeft="20dp"
+                android:textColor="@color/colorPrimaryDark"/>
             <Spinner
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/break1"></Spinner>
+                android:id="@+id/break1"
+                android:layout_marginLeft="30dp"></Spinner>
             <Spinner
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/lunch1"></Spinner>
+                android:id="@+id/lunch1"
+                android:layout_marginLeft="30dp"></Spinner>
             <Spinner
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/dinner1"></Spinner>
+                android:id="@+id/dinner1"
+                android:layout_marginLeft="30dp"></Spinner>
 
         </LinearLayout>
         <LinearLayout
@@ -184,19 +208,23 @@
                 android:text="Sunday"
                 android:textSize="25sp"
                 android:layout_marginTop="20dp"
-                android:layout_marginLeft="20dp"/>
+                android:layout_marginLeft="20dp"
+                android:textColor="@color/colorPrimaryDark"/>
             <Spinner
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/break7"></Spinner>
+                android:id="@+id/break7"
+                android:layout_marginLeft="30dp"></Spinner>
             <Spinner
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/lunch7"></Spinner>
+                android:id="@+id/lunch7"
+                android:layout_marginLeft="30dp"></Spinner>
             <Spinner
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/dinner7"></Spinner>
+                android:id="@+id/dinner7"
+                android:layout_marginLeft="30dp"></Spinner>
 
         </LinearLayout>
 
