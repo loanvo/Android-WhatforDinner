@@ -136,30 +136,31 @@ public class NewDishScreen extends AppCompatActivity {
                 startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
             }
         });
-        RelativeLayout myLayout = (RelativeLayout) findViewById( R.id.mylayout );
 
         name = (EditText) findViewById(R.id.recipe_name);
-        name.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View arg0, boolean arg1) {
-                List<String> nameList = dbHelper.getAllRecipeName();
-                name.setError(null);
-                if(nameList.contains(name.getText().toString())){
-                    //name.getBackground().setColorFilter(getResources().getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP);
-                    name.setError("Recipe name already exists!");
-                    submitBtn = (Button) findViewById(R.id.button2);
-                    submitBtn.setClickable(false);
-                }else if(name.getText().toString().isEmpty()){
-                    name.setError("Please enter recipe name!");
-                    submitBtn = (Button) findViewById(R.id.button2);
-                    submitBtn.setClickable(false);
-                } else{
+        while(EditMode=false){
+            name.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View arg0, boolean arg1) {
+                    List<String> nameList = dbHelper.getAllRecipeName();
                     name.setError(null);
-                    name.setText(recipeName);
+                    if(nameList.contains(name.getText().toString())){
+                        name.setError("Recipe name already exists!");
+                        submitBtn = (Button) findViewById(R.id.button2);
+                        submitBtn.setClickable(false);
+                    }else if(name.getText().toString().isEmpty()){
+                        name.setError("Please enter recipe name!");
+                        submitBtn = (Button) findViewById(R.id.button2);
+                        submitBtn.setClickable(false);
+                    } else{
+                        name.setError(null);
+                        name.setText(recipeName);
 
+                    }
                 }
-            }
-        });
+            });
+
+        }
 
     }
 
