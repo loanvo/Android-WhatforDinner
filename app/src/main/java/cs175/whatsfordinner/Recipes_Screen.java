@@ -45,9 +45,7 @@ public class Recipes_Screen extends AppCompatActivity {
         //}
     }
 
-    public void getDataEntry(View view){
-        finish();
-    }
+
 
 }
 

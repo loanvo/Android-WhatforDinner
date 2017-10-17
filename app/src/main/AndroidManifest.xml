@@ -12,29 +12,43 @@
         android:theme="@style/AppTheme">
 
         <!-- android:theme="@style/AppTheme" -->
-        <activity android:name=".MainScreenActivity">
+        <activity android:name=".MainScreenActivity"
+            android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".NewDishScreen"
             android:parentActivityName=".MainScreenActivity"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            android:label="New Dish"
+            />
+
         <activity
             android:name=".Recipes_Screen"
-            android:label="Recipe Screen"
-            android:parentActivityName=".MainScreenActivity" />
+            android:label="Recipe"
+            android:parentActivityName=".RecipeScreenActivity" />
+
         <activity
             android:name=".MealScreen"
-            android:parentActivityName=".MainScreenActivity" />
-        <activity android:name=".RecipeScreenActivity" />
+            android:parentActivityName=".MainScreenActivity"
+            android:label="Meals"/>
+
+        <activity
+            android:name=".RecipeScreenActivity"
+            android:parentActivityName=".MainScreenActivity"
+            android:label="All Recipes"
+            />
+
         <activity
             android:name="GroceriesScreen"
-            android:label="@string/title_activity_groceries_screen"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:label="Groceries"
+            android:parentActivityName=".MainScreenActivity"
+            />
     </application>
 
 </manifest>
