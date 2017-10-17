@@ -2,6 +2,7 @@ package cs175.whatsfordinner;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Environment;
@@ -63,10 +64,11 @@ public class NewDishScreen extends AppCompatActivity {
     private ImageView image;
     Uri defaultImage = Uri.parse("android.resource://cs175.whatsfordinner.res.drawable.default_image");
 
+    private Button submitBtn;
+
     List<String> mylist = new ArrayList<String>();
 
     public static final int PICK_IMAGE = 1;
-    Boolean newEntry = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,6 +138,29 @@ public class NewDishScreen extends AppCompatActivity {
         });
         RelativeLayout myLayout = (RelativeLayout) findViewById( R.id.mylayout );
 
+        name = (EditText) findViewById(R.id.recipe_name);
+        name.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View arg0, boolean arg1) {
+                List<String> nameList = dbHelper.getAllRecipeName();
+                name.setError(null);
+                if(nameList.contains(name.getText().toString())){
+                    //name.getBackground().setColorFilter(getResources().getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP);
+                    name.setError("Recipe name already exists!");
+                    submitBtn = (Button) findViewById(R.id.button2);
+                    submitBtn.setClickable(false);
+                }else if(name.getText().toString().isEmpty()){
+                    name.setError("Please enter recipe name!");
+                    submitBtn = (Button) findViewById(R.id.button2);
+                    submitBtn.setClickable(false);
+                } else{
+                    name.setError(null);
+                    name.setText(recipeName);
+
+                }
+            }
+        });
+
     }
 
 
@@ -194,9 +219,6 @@ public class NewDishScreen extends AppCompatActivity {
         itemList.add(item10.getText().toString());
         String d = direction.getText().toString();
         Uri igm = Uri.parse(image.toString());
-        if(n.isEmpty()){
-            Toast.makeText(getApplicationContext(), "a recipe name must be entered", Toast.LENGTH_SHORT).show();
-        }else{
             if(!recipeExists(n)){
                 Recipe recipe = new Recipe();
                 recipe.setName(n);
@@ -216,10 +238,7 @@ public class NewDishScreen extends AppCompatActivity {
                 recipe.setName("");
                 recipe.setItems(new ArrayList<String>());
                 recipe.setDirection("");
-            }else{
-                Toast.makeText(getApplicationContext(), "This recipe already exists", Toast.LENGTH_SHORT).show();
             }
-        }
     }
 
     public void submitRecipe(View view){

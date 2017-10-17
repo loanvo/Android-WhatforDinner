@@ -84,7 +84,7 @@
                 />
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="170dp"
                 android:layout_below="@id/title"
                 android:id="@+id/frameLayout"
                 tools:layout_editor_absoluteY="20dp"
@@ -145,6 +145,7 @@
                             android:layout_height="35dp"
                             android:id="@+id/item4"
                             android:hint="item4"
+                            android:textAlignment="center"
                             android:layout_marginTop="5dp"
                             android:layout_marginRight="20dp"
                             android:layout_below="@+id/item3"
