@@ -75,21 +75,33 @@ public class GroceriesScreen extends AppCompatActivity {
     public void addGroc(View v){
         RelativeLayout ParentRow = (RelativeLayout) v.getParent();
         TextView text = (TextView)ParentRow.getChildAt(0);
-        Button addBut = (Button)ParentRow.getChildAt(1);
+
         String str = text.getText().toString();
 
         String[] parts = str.split(" - ");
         String ingredient = parts[0];
-        String quantity = parts[1];
-        Log.d("quantity ", quantity);
-        //int quantityIncrease = Integer.parseInt(quantity);
-        //Log.d("quantityIncrease ", quantityIncrease);
-        //String update = ingredient + Integer.toString(quantityIncrease);
-        //text.setText(update);
+        int quantity = Integer.parseInt(parts[1]);
+        int addQuan = quantity + 1;
+        String update = ingredient + " - " + Integer.toString(addQuan);
+        text.setText(update);
 
         ParentRow.refreshDrawableState();
+    }
 
+    public void minusGroc(View v){
+        RelativeLayout ParentRow = (RelativeLayout) v.getParent();
+        TextView text = (TextView)ParentRow.getChildAt(0);
 
+        String str = text.getText().toString();
+
+        String[] parts = str.split(" - ");
+        String ingredient = parts[0];
+        int quantity = Integer.parseInt(parts[1]);
+        int subQuan = quantity - 1;
+        String update = ingredient + " - " + Integer.toString(subQuan);
+        text.setText(update);
+
+        ParentRow.refreshDrawableState();
     }
 
     class MyGestureListener extends GestureDetector.SimpleOnGestureListener {
