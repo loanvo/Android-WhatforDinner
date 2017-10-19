@@ -41,7 +41,9 @@ public class MainScreenActivity extends AppCompatActivity {
                 AlertDialog alertDialog = new AlertDialog.Builder(view.getContext()).create();
                 alertDialog.setTitle("");
                 alertDialog.setMessage("Author:   Loan Vo" + "\n" + "Version:   1.0" + "\n"
-                                        + "Link for help:   https://developer.android.com/develop/index.html"
+                                        + "Link for help:"+ "\n"
+                        + "https://developer.android.com/develop/index.html" +"\n" +
+                        "https://stackoverflow.com/questions/4139288/android-how-to-handle-right-to-left-swipe-gestures"
                                 + "\n\n" + "Copyright © Loan Vo, 2017");
                 alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                         new DialogInterface.OnClickListener() {

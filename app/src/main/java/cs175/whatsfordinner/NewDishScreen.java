@@ -138,13 +138,15 @@ public class NewDishScreen extends AppCompatActivity {
         });
 
         name = (EditText) findViewById(R.id.recipe_name);
-        while(EditMode=false){
+
+        if(EditMode == false){
             name.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                 @Override
                 public void onFocusChange(View arg0, boolean arg1) {
                     List<String> nameList = dbHelper.getAllRecipeName();
                     name.setError(null);
                     if(nameList.contains(name.getText().toString())){
+                        //name.getBackground().setColorFilter(getResources().getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP);
                         name.setError("Recipe name already exists!");
                         submitBtn = (Button) findViewById(R.id.button2);
                         submitBtn.setClickable(false);
@@ -159,9 +161,7 @@ public class NewDishScreen extends AppCompatActivity {
                     }
                 }
             });
-
         }
-
     }
 
 
@@ -173,7 +173,6 @@ public class NewDishScreen extends AppCompatActivity {
                 defaultImage = data.getData();
                 image = (ImageView) findViewById(R.id.default_image);
                 image.setImageURI(data.getData());
-                Log.d("NewDish", defaultImage.toString());
             }else{
                 image.setImageURI(defaultImage);
             }
@@ -181,14 +180,6 @@ public class NewDishScreen extends AppCompatActivity {
         }
     }
 
-    /*@Override
-        protected void onResume() {
-            super.onResume();
-
-            recipe = dbHelper.getRecipe();
-            adapter = new MyAdapter(this, R.layout.activity_recipes__screen, recipe);
-            ListView listRecipes = (ListView) findViewById(R.id.listview);
-        }*/
     public void saveRecipe(){
         name = (EditText) findViewById(R.id.recipe_name);
         item1 = (EditText) findViewById(R.id.item1);
@@ -203,8 +194,6 @@ public class NewDishScreen extends AppCompatActivity {
         item10 = (EditText) findViewById(R.id.item10);
         direction = (EditText) findViewById(R.id.direction);
         image = (ImageView) findViewById(R.id.default_image);
-
-
 
         String n = name.getText().toString();
         List<String> itemList = new ArrayList<String>();

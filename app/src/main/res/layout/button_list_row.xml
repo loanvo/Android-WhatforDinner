@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:weightSum="1">
+
+
+    <TextView
+        android:id="@+id/groc_text"
+        android:layout_width="280dp"
+        android:layout_height="55dp"
+        android:layout_marginLeft="5dp"
+
+        />
+
+    <Button
+        android:id="@+id/addButton"
+        android:layout_width="50dp"
+        android:layout_height="60dp"
+        android:layout_toEndOf="@id/groc_text"
+        android:layout_toRightOf="@id/groc_text"
+        android:drawableTop="@drawable/add"
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/minusButton"
+        android:layout_width="50dp"
+        android:layout_height="60dp"
+        android:layout_toEndOf="@id/addButton"
+        android:layout_toRightOf="@id/addButton"
+        android:drawableTop="@drawable/minus"
+        android:visibility="invisible" />
+
+
+
+</RelativeLayout>
