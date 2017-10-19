@@ -1,6 +1,7 @@
 package cs175.whatsfordinner;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.GestureDetectorCompat;
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -61,24 +63,32 @@ public class GroceriesScreen extends AppCompatActivity {
         for (int i = 0; i < grocList.size(); i++) {
             grocList.set(i, grocList.get(i) + " - " + counts.get(i).toString());
 
-           /* listView.getChildAt(i).setOnTouchListener(new OnSwipeTouchListener(this) {
-                public void onSwipeTop() {
-                }
-                public void onSwipeRight() {
-                }
-                public void onSwipeLeft() {
-
-                }
-                public void onSwipeBottom() {
-                }
-
-            });*/
         }
 
 
         ListAdapter<String> arrayAdapter = new ListAdapter<String>(this, android.R.layout.simple_list_item_1, grocList);
         listView.setAdapter(arrayAdapter);
         listView.setTextFilterEnabled(true);
+
+    }
+
+    public void addGroc(View v){
+        RelativeLayout ParentRow = (RelativeLayout) v.getParent();
+        TextView text = (TextView)ParentRow.getChildAt(0);
+        Button addBut = (Button)ParentRow.getChildAt(1);
+        String str = text.getText().toString();
+
+        String[] parts = str.split(" - ");
+        String ingredient = parts[0];
+        String quantity = parts[1];
+        Log.d("quantity ", quantity);
+        //int quantityIncrease = Integer.parseInt(quantity);
+        //Log.d("quantityIncrease ", quantityIncrease);
+        //String update = ingredient + Integer.toString(quantityIncrease);
+        //text.setText(update);
+
+        ParentRow.refreshDrawableState();
+
 
     }
 

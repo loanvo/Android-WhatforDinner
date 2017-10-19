@@ -21,6 +21,7 @@
         android:layout_toEndOf="@id/groc_text"
         android:layout_toRightOf="@id/groc_text"
         android:drawableTop="@drawable/add"
+        android:onClick="addGroc"
         android:visibility="invisible" />
 
     <Button
@@ -30,6 +31,7 @@
         android:layout_toEndOf="@id/addButton"
         android:layout_toRightOf="@id/addButton"
         android:drawableTop="@drawable/minus"
+        android:onClick="minusGroc"
         android:visibility="invisible" />
 
 
