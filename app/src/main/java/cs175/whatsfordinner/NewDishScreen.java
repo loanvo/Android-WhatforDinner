@@ -156,7 +156,6 @@ public class NewDishScreen extends AppCompatActivity {
                         submitBtn.setClickable(false);
                     } else{
                         name.setError(null);
-                        name.setText(recipeName);
 
                     }
                 }
