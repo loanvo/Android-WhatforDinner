@@ -21,6 +21,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -40,8 +41,6 @@ public class NewDishScreen extends AppCompatActivity {
 
     protected DBHelper dbHelper;
     private List<Recipe> recipe;
-
-    private MyAdapter adapter;
 
     private String recipeName="";
     private List<String> ingredients=new ArrayList<String>();
@@ -83,6 +82,7 @@ public class NewDishScreen extends AppCompatActivity {
         EditMode = false;
         if (recipename != null) {
             EditMode = true;
+
             // Fill in textboxes with current info
             name = (EditText) findViewById(R.id.recipe_name);
             name.setText(recipename);
@@ -163,7 +163,6 @@ public class NewDishScreen extends AppCompatActivity {
         }
     }
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -213,7 +212,11 @@ public class NewDishScreen extends AppCompatActivity {
                 recipe.setName(n);
                 recipe.setItems(itemList);
                 recipe.setDirection(d);
-                recipe.setImage(defaultImage);
+
+                //test
+                recipe.setImage(igm);
+
+                //recipe.setImage(defaultImage);        temp remove to test
 
                 if(EditMode) {
                     dbHelper.removeRecipe(n);
@@ -285,15 +288,11 @@ public class NewDishScreen extends AppCompatActivity {
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        //getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         return super.onOptionsItemSelected(item);
     }
+
 }

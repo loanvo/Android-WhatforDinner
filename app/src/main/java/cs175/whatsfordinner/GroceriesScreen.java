@@ -108,6 +108,8 @@ public class GroceriesScreen extends AppCompatActivity {
         private static final int SWIPE_NONE = 0;
         private static final int SWIPE_LEFT = 1;
         private static final int SWIPE_RIGHT = 2;
+        private static final int SWIPE_UP = 3;
+        private static final int SWIPE_DOWN = 4;
 
         @Override
         public boolean onFling(MotionEvent ev1, MotionEvent ev2,
@@ -119,22 +121,36 @@ public class GroceriesScreen extends AppCompatActivity {
                 } else if ((ev2.getX() - ev1.getX()) > 300) {
                     action = SWIPE_RIGHT;
                 }
+            } else if (abs(ev2.getX() - ev1.getX()) < 50) {
+                if ((ev1.getY() - ev2.getY()) > 300) {
+                    action = SWIPE_UP;
+                } else if ((ev2.getY() - ev1.getY()) > 300) {
+                    action = SWIPE_DOWN;
+                }
             }
-
             ListView listView = (ListView) findViewById(R.id.groceries_list);
-            int pos = listView.pointToPosition((int)ev1.getX(),(int)ev1.getY());
+            int pos = listView.pointToPosition((int)ev1.getX(),(int)ev1.getY()+listView.getScrollY());
             View child = listView.getChildAt(pos);
-            if(action == SWIPE_LEFT) {
-                child.findViewById(R.id.addButton).setVisibility(View.VISIBLE);
-                child.findViewById(R.id.minusButton).setVisibility(View.VISIBLE);
+            if (child != null) {
+                if(action == SWIPE_LEFT) {
+                    child.findViewById(R.id.addButton).setVisibility(View.VISIBLE);
+                    child.findViewById(R.id.minusButton).setVisibility(View.VISIBLE);
+                }
+                if(action == SWIPE_RIGHT) {
+                    child.findViewById(R.id.addButton).setVisibility(View.INVISIBLE);
+                    child.findViewById(R.id.minusButton).setVisibility(View.INVISIBLE);
+                }
             }
-            if(action == SWIPE_RIGHT) {
-                child.findViewById(R.id.addButton).setVisibility(View.INVISIBLE);
-                child.findViewById(R.id.minusButton).setVisibility(View.INVISIBLE);
+            if(action == SWIPE_UP) {
+                listView.smoothScrollByOffset(3);
             }
-            return true;
+            if(action == SWIPE_DOWN) {
+                listView.smoothScrollByOffset(-3);
+            }
+            return super.onFling(ev1, ev2, velocityX, velocityY);
         }
     }
+
 
     class ListAdapter<T> extends ArrayAdapter<T> {
 

@@ -107,7 +107,119 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <EditText
+                        <AutoCompleteTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:id="@+id/item1"
+                            android:hint="item1"
+                            android:layout_marginRight="20dp"
+                            android:textAlignment="center"
+                            android:layout_centerHorizontal="true"
+                            android:background="@drawable/border"
+                            android:inputType="textAutoComplete"
+                            />
+                        <AutoCompleteTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:id="@+id/item2"
+                            android:hint="item2"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginRight="20dp"
+                            android:textAlignment="center"
+                            android:layout_below="@+id/item1"
+                            android:layout_centerHorizontal="true"
+                            android:background="@drawable/border"/>
+                        <AutoCompleteTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:id="@+id/item3"
+                            android:hint="item3"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginRight="20dp"
+                            android:textAlignment="center"
+                            android:layout_below="@+id/item2"
+                            android:layout_centerHorizontal="true"
+                            android:background="@drawable/border"/>
+                        <AutoCompleteTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:id="@+id/item4"
+                            android:hint="item4"
+                            android:textAlignment="center"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_below="@+id/item3"
+                            android:layout_centerHorizontal="true"
+                            android:background="@drawable/border"/>
+                        <AutoCompleteTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:id="@+id/item5"
+                            android:hint="item5"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginRight="20dp"
+                            android:textAlignment="center"
+                            android:layout_below="@+id/item4"
+                            android:layout_centerHorizontal="true"
+                            android:background="@drawable/border"/>
+                        <AutoCompleteTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:id="@+id/item6"
+                            android:hint="item6"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginRight="20dp"
+                            android:textAlignment="center"
+                            android:layout_below="@+id/item5"
+                            android:layout_centerHorizontal="true"
+                            android:background="@drawable/border"/>
+                        <AutoCompleteTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:id="@+id/item7"
+                            android:hint="item7"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginRight="20dp"
+                            android:textAlignment="center"
+                            android:layout_below="@+id/item6"
+                            android:layout_centerHorizontal="true"
+                            android:background="@drawable/border"/>
+                        <AutoCompleteTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:id="@+id/item8"
+                            android:hint="item8"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginRight="20dp"
+                            android:textAlignment="center"
+                            android:layout_below="@+id/item7"
+                            android:layout_centerHorizontal="true"
+                            android:background="@drawable/border"/>
+                        <AutoCompleteTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:id="@+id/item9"
+                            android:hint="item9"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginRight="20dp"
+                            android:textAlignment="center"
+                            android:layout_below="@+id/item8"
+                            android:layout_centerHorizontal="true"
+                            android:background="@drawable/border"/>
+                        <AutoCompleteTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:id="@+id/item10"
+                            android:hint="item10"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginRight="20dp"
+                            android:textAlignment="center"
+                            android:layout_below="@+id/item9"
+                            android:layout_centerHorizontal="true"
+                            android:background="@drawable/border"/>
+
+
+  <!--                      <EditText
                             android:layout_width="match_parent"
                             android:layout_height="35dp"
                             android:id="@+id/item1"
@@ -218,7 +330,7 @@
                             android:layout_below="@+id/item9"
                             android:layout_centerHorizontal="true"
                             android:background="@drawable/border"/>
-
+-->
 
                     </RelativeLayout>
 
