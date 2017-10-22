@@ -40,6 +40,7 @@ import android.widget.Toast;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -79,19 +80,10 @@ public class NewDishScreen extends AppCompatActivity {
         setContentView(R.layout.activity_new_dish_screen);
 
         dbHelper = new DBHelper(this);
-       // List<String> ingredientsList = dbHelper.getAllIngredients();
 
         // If data is passed in, it is in edit mode
         Intent intent = getIntent();
         String recipename = intent.getStringExtra("recipename");
-
-        //set up spinner for units
-
-
-        // ArrayAdapter<String> unitAdapter= new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, units);
-        //unitAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-
         EditMode = false;
         if (recipename != null) {
             EditMode = true;
@@ -201,8 +193,24 @@ public class NewDishScreen extends AppCompatActivity {
             String p = mData.get(position);
             if (p != null) {
                 String[] parts = p.toString().split("~");
-
                 AutoCompleteTextView textView = (AutoCompleteTextView) v.findViewById(R.id.itemView);
+                List<String> ingres = dbHelper.getAllIngredients();
+                List<String> names = new ArrayList<>();
+                String[] par;
+                for(int i=0; i<ingres.size(); i++){
+                    par = ingres.get(i).split("~");
+                    if(!names.contains(par[0])){
+                        names.add(par[0]);
+                   }
+                }
+
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>
+                        (v.getContext(), android.R.layout.select_dialog_item, names);
+
+                //Getting the instance of AutoCompleteTextView
+                textView.setThreshold(1);//will start working from first character
+                textView.setAdapter(adapter);//setting the adapter data into the AutoCompleteTextView
+
                 if (textView != null) {
                     if (parts.length >= 1) {
                         textView.setText(parts[0]);
@@ -248,7 +256,6 @@ public class NewDishScreen extends AppCompatActivity {
                     }
 
                     public void onItemSelected(AdapterView<?> parent, View v, int pos, long id) {
-                        //updateRowData(v);
                     }
                 });
             }

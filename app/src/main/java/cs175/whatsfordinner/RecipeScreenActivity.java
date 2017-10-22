@@ -28,6 +28,9 @@ public class RecipeScreenActivity extends AppCompatActivity implements MyFragmen
         dbHelper = new DBHelper(this);
         mylist = dbHelper.getAllRecipeName();
 
+        //get ingredients for chosen recipe
+
+
         MyFragment ListFrag = (MyFragment) getFragmentManager().findFragmentById(R.id.fragment1);
         DetailFragment detailFragment = (DetailFragment) getFragmentManager().findFragmentById(R.id.fragment2);
 
@@ -40,7 +43,6 @@ public class RecipeScreenActivity extends AppCompatActivity implements MyFragmen
     public void OnRecipeSelected(String recipeName) {
         DetailFragment detail = (DetailFragment) getFragmentManager().findFragmentById(R.id.fragment2);
         Recipe recipeInfo = dbHelper.getRecipeByName(recipeName);
-        Log.d("GetRcpi", recipeInfo.getImage().toString());
 
         // TODO:
         Uri defaultImage = Uri.parse("android.resource://cs175.whatsfordinner/"+R.drawable.default_image);

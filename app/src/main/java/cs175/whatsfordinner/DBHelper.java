@@ -167,7 +167,6 @@ public class DBHelper extends SQLiteOpenHelper{
         return ingredient_list;
     }
 
-
     public void deleteAll(List<Recipe> list){
         list.clear();
 
