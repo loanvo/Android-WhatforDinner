@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,8 @@ public class MealScreen extends AppCompatActivity {
 
     private List<Spinner> spinners;
     private List<String> meals;
+    private int counts;
+
     final int[] spin_ids = {
             R.id.break1,
             R.id.lunch1,
@@ -54,11 +57,19 @@ public class MealScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meal_screen);
+        meals = new ArrayList<String>();
 
         recipeSelected = new ArrayList<Long>();
-
-        meals = dbHelper.getAllRecipeName();
+        List<String> names = dbHelper.getAllRecipeName();
         meals.add(0,"Eating out");
+        for(int i =0; i<names.size();i++){
+            counts = dbHelper.getCount(names.get(i));
+            while(counts > 0){
+                meals.add(names.get(i));
+                counts -= 1;
+            }
+        }
+
         String mealString = "";
 
         for (int i=0; i < spin_ids.length; i++) {

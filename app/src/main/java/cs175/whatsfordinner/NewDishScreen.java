@@ -323,7 +323,7 @@ public class NewDishScreen extends AppCompatActivity {
                 //recipe.setImage(igm);
 
                 recipe.setImage(defaultImage);
-
+                recipe.setSelectedRecipe(0);
                 if(EditMode) {
                     dbHelper.removeRecipe(n);
                 }
@@ -332,6 +332,7 @@ public class NewDishScreen extends AppCompatActivity {
                 recipeName = n;
                 ingredients = itemList;
                 direct = d;
+                int count = recipe.getSelectedRecipe();
 
                 recipe.setName("");
                 recipe.setItems(new ArrayList<String>());

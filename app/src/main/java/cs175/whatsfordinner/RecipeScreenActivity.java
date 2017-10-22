@@ -3,6 +3,7 @@ package cs175.whatsfordinner;
 import android.app.Fragment;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.annotation.IntegerRes;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +11,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.EmptyStackException;
@@ -19,6 +22,7 @@ public class RecipeScreenActivity extends AppCompatActivity implements MyFragmen
 
     protected DBHelper dbHelper;
     private List<String> mylist = new ArrayList<String>();
+    private int count;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +36,7 @@ public class RecipeScreenActivity extends AppCompatActivity implements MyFragmen
 
 
         MyFragment ListFrag = (MyFragment) getFragmentManager().findFragmentById(R.id.fragment1);
-        DetailFragment detailFragment = (DetailFragment) getFragmentManager().findFragmentById(R.id.fragment2);
+       // DetailFragment detailFragment = (DetailFragment) getFragmentManager().findFragmentById(R.id.fragment2);
 
         if (ListFrag != null) {
             ListFrag.updateList(mylist);
@@ -41,6 +45,9 @@ public class RecipeScreenActivity extends AppCompatActivity implements MyFragmen
 
     @Override
     public void OnRecipeSelected(String recipeName) {
+        //add selected recipes to meal plan
+        dbHelper.insertSelectedCount(recipeName);
+
         DetailFragment detail = (DetailFragment) getFragmentManager().findFragmentById(R.id.fragment2);
         Recipe recipeInfo = dbHelper.getRecipeByName(recipeName);
 
@@ -56,7 +63,10 @@ public class RecipeScreenActivity extends AppCompatActivity implements MyFragmen
             if(recipeInfo == null){
                 throw new EmptyStackException();
             }else{
-                String[] units = { "lb",  "pcs",  "oz",  "tsp",  "ml", "cup" };
+                //TextView text = (TextView) findViewById(R.id.selected);
+
+
+                /*String[] units = { "lb",  "pcs",  "oz",  "tsp",  "ml", "cup" };
                 List<String> items = recipeInfo.getItems();
                 String itemString = "";
                 for(int i =0; i<items.size(); i++){
@@ -77,7 +87,7 @@ public class RecipeScreenActivity extends AppCompatActivity implements MyFragmen
                 intent.putExtra("direction", direction);
                 intent.putExtra("image", image.toString());
                 //intent.putExtra("image", "");
-                startActivity(intent);
+                startActivity(intent);*/
             }
         }
     }

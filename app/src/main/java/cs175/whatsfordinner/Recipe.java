@@ -14,6 +14,7 @@ public class Recipe {
     private List<String> ingredients;
     private String direction;
     private Uri image;
+    private int selected;
 
     public Recipe(){
 
@@ -44,7 +45,9 @@ public class Recipe {
     public Uri getImage(){
         return image;
     }
-
+    public int getSelectedRecipe(){
+        return selected;
+    }
     public void setId(int id){
         _id = id;
     }
@@ -64,6 +67,8 @@ public class Recipe {
     public void setDirection(String d){
         direction = d;
     }
-
+    public void setSelectedRecipe(int s){
+        selected=s;
+    }
 
 }

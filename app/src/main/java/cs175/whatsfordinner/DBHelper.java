@@ -17,7 +17,7 @@ import java.util.List;
  * Created by loanvo on 10/5/17.
  */
 public class DBHelper extends SQLiteOpenHelper{
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 7;
     private static final String DATABASE_NAME = "Recipes";
     private static final String TABLE_NAME = "new_Recipes";
 
@@ -27,6 +27,7 @@ public class DBHelper extends SQLiteOpenHelper{
     private static final String KEY_DIRECTION = "direction";
     private static final String KEY_IMAGEURI = "imageUri";
 
+    private static final String KEY_SELECTED_COUNT= "selected_recipes";
     private int recipeCount;
 
     public DBHelper(Context context){
@@ -37,8 +38,8 @@ public class DBHelper extends SQLiteOpenHelper{
     public void onCreate(SQLiteDatabase db) {
         String querry = ("CREATE TABLE " + TABLE_NAME + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 KEY_NAME + " TEXT," + KEY_ITEMS + " TEXT," + KEY_DIRECTION + " TEXT,"
-                    + KEY_IMAGEURI + " TEXT)");
-        Log.d("DBHelper-onCreate", querry);
+                    + KEY_IMAGEURI + " TEXT," + KEY_SELECTED_COUNT + " INT)");
+        Log.e("--------table:", querry);
         db.execSQL (querry);
     }
 
@@ -57,11 +58,68 @@ public class DBHelper extends SQLiteOpenHelper{
         values.put(KEY_ITEMS, recipe.getItems().toString());
         values.put(KEY_DIRECTION, recipe.getDirection());
         values.put(KEY_IMAGEURI, recipe.getImage().toString());
+        values.put(KEY_SELECTED_COUNT, recipe.getSelectedRecipe());
 
         db.insert(TABLE_NAME, null, values);
         recipeCount ++;
 
         db.close();
+    }
+
+    //insert value into selected_recipes when recipe is selected
+    public void insertSelectedCount(String recipeName) {
+        /*Recipe recipe = new Recipe();
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(KEY_SELECTED_COUNT, getCount(recipeName)+1);
+
+        db.update(TABLE_NAME, values, KEY_SELECTED_COUNT + "= ?", new String[] {recipeName});
+
+        Log.e("count----------", Integer.toString(getCount(recipeName)));
+        db.close();*/
+        int count = getCount(recipeName)+1;
+        String selectQuery = "UPDATE " + TABLE_NAME + " SET " + KEY_SELECTED_COUNT+ " = '"+ count +"' WHERE "+KEY_NAME+ " = '"+recipeName  +"'";
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL(selectQuery);
+        Log.e("count----------", Integer.toString(getCount(recipeName)));
+        db.close();
+    }
+
+    public int getCount(String name){
+        String selectQuery = "SELECT "+ KEY_SELECTED_COUNT + " FROM " + TABLE_NAME + " WHERE " + KEY_NAME + " = " + "'"+ name +"'";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        int count =0;
+        if(cursor.moveToFirst()){
+            do {
+                Recipe recipe = new Recipe();
+                recipe.setSelectedRecipe(cursor.getInt(0));
+                count = recipe.getSelectedRecipe();
+            } while(cursor.moveToNext());
+        }else{
+            return 0;
+        }
+        return count;
+    }
+    //get name by selected recipe
+    public List<String> getNameByCount(){
+        List<String> recipesNameList = new ArrayList<String>();
+        String selectQuery = "SELECT "+ KEY_NAME + " FROM " + TABLE_NAME + " WHERE " + KEY_SELECTED_COUNT + " > 0 ";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        String name="";
+        if(cursor.moveToFirst()){
+            do {
+                Recipe recipe = new Recipe();
+                recipe.setName (cursor.getString(0));
+                recipesNameList.add(recipe.getName());
+            } while(cursor.moveToNext());
+        }else{
+            return null;
+        }
+        return recipesNameList;
     }
 
     //get all name of recipe in database
@@ -120,6 +178,7 @@ public class DBHelper extends SQLiteOpenHelper{
                 recipe.setItems (items);
                 recipe.setDirection(cursor.getString(3));
                 recipe.setImage(Uri.parse(cursor.getString(4)));
+                recipe.setSelectedRecipe(cursor.getInt(5));
             } while(cursor.moveToNext());
         }
         return recipesList;
@@ -145,6 +204,7 @@ public class DBHelper extends SQLiteOpenHelper{
             recipeInfo.setItems (items);
             recipeInfo.setDirection (cursor.getString(3));
             recipeInfo.setImage(Uri.parse(cursor.getString(4)));
+            recipeInfo.setSelectedRecipe(cursor.getInt(5));
         }else{
             return null;
         }
