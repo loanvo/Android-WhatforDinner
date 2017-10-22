@@ -42,7 +42,8 @@ public class RecipeScreenActivity extends AppCompatActivity implements MyFragmen
         Recipe recipeInfo = dbHelper.getRecipeByName(recipeName);
         Log.d("GetRcpi", recipeInfo.getImage().toString());
 
-        Uri defaultImage = Uri.parse("android.resource://cs175.whatsfordinner.res.drawable.default_image");
+        // TODO:
+        Uri defaultImage = Uri.parse("android.resource://cs175.whatsfordinner/"+R.drawable.default_image);
         recipeInfo.setImage(defaultImage);
 
         if(detail != null && detail.isInLayout()){
@@ -72,8 +73,8 @@ public class RecipeScreenActivity extends AppCompatActivity implements MyFragmen
                 intent.putExtra("recipename", recipeName);
                 intent.putExtra("ingredients", itemString);
                 intent.putExtra("direction", direction);
-                //intent.putExtra("image", image.toString());
-                intent.putExtra("image", "");
+                intent.putExtra("image", image.toString());
+                //intent.putExtra("image", "");
                 startActivity(intent);
             }
         }

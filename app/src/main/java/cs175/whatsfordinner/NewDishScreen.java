@@ -38,6 +38,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -62,7 +64,7 @@ public class NewDishScreen extends AppCompatActivity {
 
     private EditText direction;
     private ImageView image;
-    Uri defaultImage = Uri.parse("android.resource://cs175.whatsfordinner.res.drawable.default_image");
+    Uri defaultImage = Uri.parse("android.resource://cs175.whatsfordinner/"+R.drawable.default_image);
 
     private Button submitBtn;
     private ListAdapter ingrAdapter;
@@ -146,7 +148,6 @@ public class NewDishScreen extends AppCompatActivity {
                     name.setError(null);
                     submitBtn = (Button) findViewById(R.id.button2);
                     if(nameList.contains(name.getText().toString())){
-                        //name.getBackground().setColorFilter(getResources().getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP);
                         name.setError("Recipe name already exists!");
                         submitBtn.setClickable(false);
                     }else if(name.getText().toString().isEmpty()){
@@ -271,6 +272,14 @@ public class NewDishScreen extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == RESULT_OK) {
             if(requestCode==PICK_IMAGE){
+                /*try {
+                    InputStream inputStream = getContentResolver().openInputStream(data.getData());
+                    Drawable yourDrawable = Drawable.createFromStream(inputStream, data.getData().toString());
+                    String a = yourDrawable.toString();
+                    image.setImageDrawable(yourDrawable);
+                } catch (FileNotFoundException e) {
+                    //yourDrawable = getResources().getDrawable(R.drawable.default_image);
+                }*/
                 defaultImage = data.getData();
                 image = (ImageView) findViewById(R.id.default_image);
                 image.setImageURI(data.getData());
@@ -286,7 +295,6 @@ public class NewDishScreen extends AppCompatActivity {
 
         direction = (EditText) findViewById(R.id.direction);
         image = (ImageView) findViewById(R.id.default_image);
-
 
         String n = name.getText().toString();
         List<String> itemList = new ArrayList<String>();
@@ -305,9 +313,9 @@ public class NewDishScreen extends AppCompatActivity {
                 recipe.setDirection(d);
 
                 //test
-                recipe.setImage(igm);
+                //recipe.setImage(igm);
 
-                //recipe.setImage(defaultImage);        temp remove to test
+                recipe.setImage(defaultImage);
 
                 if(EditMode) {
                     dbHelper.removeRecipe(n);
