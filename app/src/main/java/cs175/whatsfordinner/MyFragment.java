@@ -52,8 +52,12 @@ public class MyFragment extends Fragment{
                 intent.putExtra("recipename", recipeName);
 
                 List<String> items = recipeInfo.getItems();
-                for(int k =0; k<items.size(); k++){
-                    intent.putExtra("ingredients"+Integer.toString(k), items.get(k));
+                for(int k =0; k<10; k++){
+                    if(k<items.size()) {
+                        intent.putExtra("ingredients" + Integer.toString(k), items.get(k));
+                    } else {
+                        intent.putExtra("ingredients" + Integer.toString(k), "");
+                    }
                 }
 
                 intent.putExtra("direction", recipeInfo.getDirection());

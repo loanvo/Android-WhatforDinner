@@ -48,7 +48,7 @@
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:layout_below="@id/textView2"
-                app:srcCompat="@drawable/defaut_image"
+                app:srcCompat="@drawable/default_image"
                 />
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -78,7 +78,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:text="Diections:"
+            android:text="Directions:"
             android:textSize="20sp"
             android:layout_below="@id/layout" />
 

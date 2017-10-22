@@ -29,6 +29,7 @@ import static java.lang.Math.abs;
 public class GroceriesScreen extends AppCompatActivity {
     protected DBHelper dbHelper;
     private GestureDetectorCompat mDetector;
+    private String[] units = { "lb",  "pcs",  "oz",  "tsp",  "ml", "cup" };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,15 +40,25 @@ public class GroceriesScreen extends AppCompatActivity {
         List<String> ingredientsList = dbHelper.getAllIngredients();
 
         List<String> grocList = new ArrayList<String>();
-        List<Integer> counts = new ArrayList<Integer>();
+        List<Float> counts = new ArrayList<Float>();
+        List<String> unitList = new ArrayList<String>();
         for (int i = 0; i < ingredientsList.size(); i++) {
-            int index = grocList.indexOf(ingredientsList.get(i));
-            if (index >= 0) {
-                counts.set(index, counts.get(index) + 1);
+            String[] parts = ingredientsList.get(i).toString().split("~");
+            if((parts.length<3) || (parts[0].equals(""))) continue;
+            int index1 = grocList.indexOf(parts[0]);
+            int index2 = unitList.indexOf(parts[2]);
+            if ((index1 >= 0) && (index2 == index1)) {
+                counts.set(index1, counts.get(index1) + Float.parseFloat(parts[1]));
             } else {
-                grocList.add(ingredientsList.get(i));
-                counts.add(new Integer(1));
+                grocList.add(parts[0]);
+                counts.add(Float.parseFloat(parts[1]));
+                unitList.add(parts[2]);
             }
+        }
+        for (int i = 0; i < grocList.size(); i++) {
+            grocList.set(i, grocList.get(i) + "~" +
+                            counts.get(i) + "~" +
+                            unitList.get(i));
         }
 
         mDetector = new GestureDetectorCompat(this, new MyGestureListener());
@@ -59,12 +70,6 @@ public class GroceriesScreen extends AppCompatActivity {
                 return true;
             }
         });
-
-        for (int i = 0; i < grocList.size(); i++) {
-            grocList.set(i, grocList.get(i) + " - " + counts.get(i).toString());
-
-        }
-
 
         ListAdapter<String> arrayAdapter = new ListAdapter<String>(this, android.R.layout.simple_list_item_1, grocList);
         listView.setAdapter(arrayAdapter);
@@ -78,14 +83,14 @@ public class GroceriesScreen extends AppCompatActivity {
 
         String str = text.getText().toString();
 
-        String[] parts = str.split(" - ");
-        String ingredient = parts[0];
-        int quantity = Integer.parseInt(parts[1]);
-        int addQuan = quantity + 1;
-        String update = ingredient + " - " + Integer.toString(addQuan);
-        text.setText(update);
-
-        ParentRow.refreshDrawableState();
+        String[] names = str.split(":");
+        String[] parts = names[1].split(" ");
+        if(parts.length>=2) {
+            Float quantity = Float.parseFloat(parts[1]) + 1;
+            String update = names[0] + ": " + quantity.toString() + " " + parts[2];
+            text.setText(update);
+            ParentRow.refreshDrawableState();
+        }
     }
 
     public void minusGroc(View v){
@@ -94,14 +99,15 @@ public class GroceriesScreen extends AppCompatActivity {
 
         String str = text.getText().toString();
 
-        String[] parts = str.split(" - ");
-        String ingredient = parts[0];
-        int quantity = Integer.parseInt(parts[1]);
-        int subQuan = quantity - 1;
-        String update = ingredient + " - " + Integer.toString(subQuan);
-        text.setText(update);
-
-        ParentRow.refreshDrawableState();
+        String[] names = str.split(":");
+        String[] parts = names[1].split(" ");
+        if(parts.length>=2) {
+            Float quantity = Float.parseFloat(parts[1]) - 1;
+            if(quantity<0) return;
+            String update = names[0] + ": " + quantity.toString() + " " + parts[2];
+            text.setText(update);
+            ParentRow.refreshDrawableState();
+        }
     }
 
     class MyGestureListener extends GestureDetector.SimpleOnGestureListener {
@@ -129,7 +135,11 @@ public class GroceriesScreen extends AppCompatActivity {
                 }
             }
             ListView listView = (ListView) findViewById(R.id.groceries_list);
-            int pos = listView.pointToPosition((int)ev1.getX(),(int)ev1.getY()+listView.getScrollY());
+            int pos = listView.pointToPosition((int)ev1.getX(),(int)ev1.getY());
+            Log.e("---pos---:",Integer.toString(pos));
+            Log.e("---scrl--:",Integer.toString(listView.getScrollY()));
+            Log.e("--vscrl--:",Integer.toString(listView.getVerticalScrollbarPosition()));
+            Log.e("---childcount:",Integer.toString(listView.getChildCount()));
             View child = listView.getChildAt(pos);
             if (child != null) {
                 if(action == SWIPE_LEFT) {
@@ -178,7 +188,11 @@ public class GroceriesScreen extends AppCompatActivity {
                 TextView textView = (TextView) v.findViewById(R.id.groc_text);
 
                 if (textView != null) {
-                    textView.setText(p.toString());
+                    String[] parts = p.toString().split("~");
+                    if((parts.length>=3) && (!parts[0].equals(""))) {
+                        textView.setText(parts[0] + ": " + parts[1] +
+                                         " " + units[Integer.parseInt(parts[2])]);
+                    }
                 }
             }
             return v;

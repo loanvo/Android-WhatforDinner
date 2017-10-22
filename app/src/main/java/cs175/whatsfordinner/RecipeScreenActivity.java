@@ -53,10 +53,16 @@ public class RecipeScreenActivity extends AppCompatActivity implements MyFragmen
             if(recipeInfo == null){
                 throw new EmptyStackException();
             }else{
+                String[] units = { "lb",  "pcs",  "oz",  "tsp",  "ml", "cup" };
                 List<String> items = recipeInfo.getItems();
                 String itemString = "";
                 for(int i =0; i<items.size(); i++){
-                    itemString += "* " + items.get(i) + "\n";
+                    String[] parts = items.get(i).toString().split("~");
+                    if((parts.length<3) || (parts[0].equals(""))) continue;
+                    itemString += "* " + parts[0] +
+                            " " + parts[1] +
+                            " " + units[Integer.parseInt(parts[2])] +
+                            "\n";
                 }
 
                 String direction = recipeInfo.getDirection();

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,7 @@ public class DetailFragment extends Fragment {
         TextView direction = (TextView) view.findViewById(R.id.textView4);
         ImageView imageView = (ImageView) view.findViewById(R.id.imageView);
 
+        String[] units = { "lb",  "pcs",  "oz",  "tsp",  "ml", "cup" };
 
         String name = recipe.getName();
         recipename.setText(name);
@@ -39,7 +41,12 @@ public class DetailFragment extends Fragment {
         List<String> items = recipe.getItems();
         String itemString = "";
         for(int i =0; i<items.size(); i++){
-            itemString += "* " + items.get(i) + "\n";
+            String[] parts = items.get(i).toString().split("~");
+            if((parts.length<3) || (parts[0].equals(""))) continue;
+            itemString += "* " + parts[0] +
+                           " " + parts[1] +
+                           " " + units[Integer.parseInt(parts[2])] +
+                           "\n";
         }
         ingredients.setText(itemString);
 
