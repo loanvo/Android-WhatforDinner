@@ -18,7 +18,7 @@
         android:hint="Quantity"
         android:id="@+id/quantity_view"
         android:textAlignment="center"
-        android:inputType="number"/>
+        android:inputType="numberDecimal"/>
     <Spinner
         android:layout_width="100dp"
         android:layout_height="wrap_content"

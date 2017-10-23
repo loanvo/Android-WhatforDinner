@@ -46,8 +46,7 @@ public class GroceriesScreen extends AppCompatActivity {
             String[] parts = ingredientsList.get(i).toString().split("~");
             if((parts.length<3) || (parts[0].equals(""))) continue;
             int index1 = grocList.indexOf(parts[0]);
-            int index2 = unitList.indexOf(parts[2]);
-            if ((index1 >= 0) && (index2 == index1)) {
+            if ((index1 >= 0) && unitList.get(index1).equals(parts[2])) {
                 counts.set(index1, counts.get(index1) + Float.parseFloat(parts[1]));
             } else {
                 grocList.add(parts[0]);
@@ -87,6 +86,9 @@ public class GroceriesScreen extends AppCompatActivity {
         String[] parts = names[1].split(" ");
         if(parts.length>=2) {
             Float quantity = Float.parseFloat(parts[1]) + 1;
+            if (quantity > 0) {
+                text.setPaintFlags(0);
+            }
             String update = names[0] + ": " + quantity.toString() + " " + parts[2];
             text.setText(update);
             ParentRow.refreshDrawableState();
@@ -103,16 +105,14 @@ public class GroceriesScreen extends AppCompatActivity {
         String[] parts = names[1].split(" ");
         if(parts.length>=2) {
             Float quantity = Float.parseFloat(parts[1]) - 1;
-            if(quantity<0) return;
-            else if(quantity==0){
-                String update = names[0] + ": " + quantity.toString() + " " + parts[2];
+            if ((quantity<0) || (quantity==0)){
+                String update = names[0] + ": 0 " + parts[2];
                 text.setText(update);
                 text.setPaintFlags(text.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-            }else{
-                text.setPaintFlags(0);
+            } else {
+                String update = names[0] + ": " + quantity.toString() + " " + parts[2];
+                text.setText(update);
             }
-            String update = names[0] + ": " + quantity.toString() + " " + parts[2];
-            text.setText(update);
             ParentRow.refreshDrawableState();
         }
     }
