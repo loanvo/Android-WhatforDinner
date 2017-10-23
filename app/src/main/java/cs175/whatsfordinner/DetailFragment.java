@@ -33,7 +33,7 @@ public class DetailFragment extends Fragment {
         TextView direction = (TextView) view.findViewById(R.id.textView4);
         ImageView imageView = (ImageView) view.findViewById(R.id.imageView);
 
-        String[] units = { "lb",  "pcs",  "oz",  "tsp",  "ml", "cup" };
+        String[] units = { "lb",  "pcs",  "oz",  "tsp",  "ml", "cup", "slice" };
 
         String name = recipe.getName();
         recipename.setText(name);

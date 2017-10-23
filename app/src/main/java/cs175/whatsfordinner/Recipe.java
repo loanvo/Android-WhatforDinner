@@ -19,13 +19,6 @@ public class Recipe {
     public Recipe(){
 
     }
-   /* public Recipe(int id, String n, String ingre, String dir, Uri imageUri){
-        _id = id;
-        name = n;
-        ingredients = ingre;
-        direction = dir;
-        image = imageUri;
-    }*/
     public int getID(){
         return _id;
     }

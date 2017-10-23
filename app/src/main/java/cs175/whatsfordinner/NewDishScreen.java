@@ -240,7 +240,7 @@ public class NewDishScreen extends AppCompatActivity {
                     }
                 });
 
-                String[] units = { "lb",  "pcs",  "oz",  "tsp",  "ml", "cup" };
+                String[] units = { "lb",  "pcs",  "oz",  "tsp",  "ml", "cup", "slice" };
                 Spinner spinner = (Spinner) v.findViewById(R.id.unit_spinner);
                 if (spinner != null) {
                     ArrayAdapter<String> unitAdapter = new ArrayAdapter<String>(v.getContext(),
@@ -279,14 +279,6 @@ public class NewDishScreen extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == RESULT_OK) {
             if(requestCode==PICK_IMAGE){
-                /*try {
-                    InputStream inputStream = getContentResolver().openInputStream(data.getData());
-                    Drawable yourDrawable = Drawable.createFromStream(inputStream, data.getData().toString());
-                    String a = yourDrawable.toString();
-                    image.setImageDrawable(yourDrawable);
-                } catch (FileNotFoundException e) {
-                    //yourDrawable = getResources().getDrawable(R.drawable.default_image);
-                }*/
                 defaultImage = data.getData();
                 image = (ImageView) findViewById(R.id.default_image);
                 image.setImageURI(data.getData());
@@ -343,7 +335,7 @@ public class NewDishScreen extends AppCompatActivity {
     public void submitRecipe(View view){
         saveRecipe();
 
-        String[] units = { "lb",  "pcs",  "oz",  "tsp",  "ml", "cup" };
+        String[] units = { "lb",  "pcs",  "oz",  "tsp",  "ml", "cup", "slice" };
         List<String> items = ingredients;
         String itemString = "";
         for(int i =0; i<items.size(); i++){

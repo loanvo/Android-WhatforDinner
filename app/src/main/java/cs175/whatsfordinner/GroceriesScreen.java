@@ -29,7 +29,7 @@ import static java.lang.Math.abs;
 public class GroceriesScreen extends AppCompatActivity {
     protected DBHelper dbHelper;
     private GestureDetectorCompat mDetector;
-    private String[] units = { "lb",  "pcs",  "oz",  "tsp",  "ml", "cup" };
+    private String[] units = { "lb",  "pcs",  "oz",  "tsp",  "ml", "cup", "slice" };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +108,8 @@ public class GroceriesScreen extends AppCompatActivity {
                 String update = names[0] + ": " + quantity.toString() + " " + parts[2];
                 text.setText(update);
                 text.setPaintFlags(text.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            }else{
+                text.setPaintFlags(0);
             }
             String update = names[0] + ": " + quantity.toString() + " " + parts[2];
             text.setText(update);

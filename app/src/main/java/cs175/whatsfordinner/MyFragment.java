@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -28,6 +31,7 @@ public class MyFragment extends Fragment{
     ArrayAdapter<String > arrayAdapter;
     List<String> list;  //list of all recipe name
     List<String> wholeRecipe;    // recipe detail
+    int[] counts;
     protected DBHelper dbHelper;
     View view;
 
@@ -37,12 +41,11 @@ public class MyFragment extends Fragment{
         ListView mylistView = (ListView) view.findViewById(R.id.listView);
 
         mylistView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-            int count =0;
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
+                counts[i]+=1;
                 String recipeName = arrayAdapter.getItem(i);
-                listener.OnRecipeSelected(view,recipeName);
+                listener.OnRecipeSelected(view,recipeName,counts[i]);
             }
         });
 
@@ -75,7 +78,7 @@ public class MyFragment extends Fragment{
     }
 
     public interface OnItemSelectedListener {
-        public void OnRecipeSelected(View view,String recipeName);
+        public void OnRecipeSelected(View view,String recipeName, int count);
     }
 
     @Override
@@ -90,6 +93,7 @@ public class MyFragment extends Fragment{
 
     public void updateList(List<String> mylist){
         list = mylist;
+        counts= new int[list.size()];
         ListView mylistView = (ListView) view.findViewById(R.id.listView);
         arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, list);
         mylistView.setAdapter(arrayAdapter);

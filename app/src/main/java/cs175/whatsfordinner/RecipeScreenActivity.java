@@ -43,8 +43,8 @@ public class RecipeScreenActivity extends AppCompatActivity implements MyFragmen
     }
 
     @Override
-    public void OnRecipeSelected(View view,String recipeName) {
-        int count =0;
+    public void OnRecipeSelected(View view,String recipeName, int count) {
+
         //add selected recipes to meal plan
         dbHelper.insertSelectedCount(recipeName);
 
@@ -63,9 +63,8 @@ public class RecipeScreenActivity extends AppCompatActivity implements MyFragmen
             if(recipeInfo == null){
                 throw new EmptyStackException();
             }else{
-                count +=1;
                 view.setBackgroundColor(Color.LTGRAY);
-                ((TextView)view).setText(recipeName + ("  ----  (added to meal plan  " + count + " times)"));
+                ((TextView)view).setText(recipeName + ("  ---- (added --" +count+ " times)"));
             }
         }
     }

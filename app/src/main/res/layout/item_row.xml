@@ -10,7 +10,8 @@
         android:id="@+id/itemView"
         android:hint="Ingredients"
         android:textAlignment="center"
-        android:inputType="textCapWords"/>
+        android:inputType="textCapWords|textAutoComplete|textAutoCorrect"
+        />
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

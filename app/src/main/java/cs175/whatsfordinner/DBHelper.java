@@ -17,7 +17,7 @@ import java.util.List;
  * Created by loanvo on 10/5/17.
  */
 public class DBHelper extends SQLiteOpenHelper{
-    private static final int DATABASE_VERSION = 7;
+    private static final int DATABASE_VERSION = 11;
     private static final String DATABASE_NAME = "Recipes";
     private static final String TABLE_NAME = "new_Recipes";
 
@@ -39,7 +39,6 @@ public class DBHelper extends SQLiteOpenHelper{
         String querry = ("CREATE TABLE " + TABLE_NAME + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 KEY_NAME + " TEXT," + KEY_ITEMS + " TEXT," + KEY_DIRECTION + " TEXT,"
                     + KEY_IMAGEURI + " TEXT," + KEY_SELECTED_COUNT + " INT)");
-        Log.e("--------table:", querry);
         db.execSQL (querry);
     }
 
@@ -68,22 +67,10 @@ public class DBHelper extends SQLiteOpenHelper{
 
     //insert value into selected_recipes when recipe is selected
     public void insertSelectedCount(String recipeName) {
-        /*Recipe recipe = new Recipe();
-
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-
-        values.put(KEY_SELECTED_COUNT, getCount(recipeName)+1);
-
-        db.update(TABLE_NAME, values, KEY_SELECTED_COUNT + "= ?", new String[] {recipeName});
-
-        Log.e("count----------", Integer.toString(getCount(recipeName)));
-        db.close();*/
         int count = getCount(recipeName)+1;
         String selectQuery = "UPDATE " + TABLE_NAME + " SET " + KEY_SELECTED_COUNT+ " = '"+ count +"' WHERE "+KEY_NAME+ " = '"+recipeName  +"'";
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL(selectQuery);
-        Log.e("count----------", Integer.toString(getCount(recipeName)));
         db.close();
     }
 
@@ -240,7 +227,6 @@ public class DBHelper extends SQLiteOpenHelper{
         ContentValues values = new ContentValues();
 
         values.put(KEY_NAME, recipe.getName());
-        //values.put(KEY_ITEMS, recipe.getItems());
         values.put(KEY_DIRECTION, recipe.getDirection());
         values.put(KEY_IMAGEURI, recipe.getImage().toString());
 
