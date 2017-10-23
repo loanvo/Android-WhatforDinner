@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -12,6 +13,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 
 import java.util.List;
@@ -32,11 +35,14 @@ public class MyFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.list_fragment, container, false);
         ListView mylistView = (ListView) view.findViewById(R.id.listView);
+
         mylistView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            int count =0;
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
                 String recipeName = arrayAdapter.getItem(i);
-                listener.OnRecipeSelected(recipeName);
+                listener.OnRecipeSelected(view,recipeName);
             }
         });
 
@@ -69,7 +75,7 @@ public class MyFragment extends Fragment{
     }
 
     public interface OnItemSelectedListener {
-        public void OnRecipeSelected(String recipeName);
+        public void OnRecipeSelected(View view,String recipeName);
     }
 
     @Override

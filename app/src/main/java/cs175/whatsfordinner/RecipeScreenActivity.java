@@ -2,7 +2,9 @@ package cs175.whatsfordinner;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
+import android.provider.CalendarContract;
 import android.support.annotation.IntegerRes;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -22,7 +24,6 @@ public class RecipeScreenActivity extends AppCompatActivity implements MyFragmen
 
     protected DBHelper dbHelper;
     private List<String> mylist = new ArrayList<String>();
-    private int count;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,15 +37,14 @@ public class RecipeScreenActivity extends AppCompatActivity implements MyFragmen
 
 
         MyFragment ListFrag = (MyFragment) getFragmentManager().findFragmentById(R.id.fragment1);
-       // DetailFragment detailFragment = (DetailFragment) getFragmentManager().findFragmentById(R.id.fragment2);
-
         if (ListFrag != null) {
             ListFrag.updateList(mylist);
         }
     }
 
     @Override
-    public void OnRecipeSelected(String recipeName) {
+    public void OnRecipeSelected(View view,String recipeName) {
+        int count =0;
         //add selected recipes to meal plan
         dbHelper.insertSelectedCount(recipeName);
 
@@ -63,31 +63,9 @@ public class RecipeScreenActivity extends AppCompatActivity implements MyFragmen
             if(recipeInfo == null){
                 throw new EmptyStackException();
             }else{
-                //TextView text = (TextView) findViewById(R.id.selected);
-
-
-                /*String[] units = { "lb",  "pcs",  "oz",  "tsp",  "ml", "cup" };
-                List<String> items = recipeInfo.getItems();
-                String itemString = "";
-                for(int i =0; i<items.size(); i++){
-                    String[] parts = items.get(i).toString().split("~");
-                    if((parts.length<3) || (parts[0].equals(""))) continue;
-                    itemString += "* " + parts[0] +
-                            " " + parts[1] +
-                            " " + units[Integer.parseInt(parts[2])] +
-                            "\n";
-                }
-
-                String direction = recipeInfo.getDirection();
-                Uri image = recipeInfo.getImage();
-
-                Intent intent = new Intent(this, Recipes_Screen.class);
-                intent.putExtra("recipename", recipeName);
-                intent.putExtra("ingredients", itemString);
-                intent.putExtra("direction", direction);
-                intent.putExtra("image", image.toString());
-                //intent.putExtra("image", "");
-                startActivity(intent);*/
+                count +=1;
+                view.setBackgroundColor(Color.LTGRAY);
+                ((TextView)view).setText(recipeName + ("  ----  (added to meal plan  " + count + " times)"));
             }
         }
     }
